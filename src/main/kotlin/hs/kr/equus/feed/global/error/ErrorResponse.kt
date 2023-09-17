@@ -1,4 +1,4 @@
-package hs.kr.equus.user.global.error
+package hs.kr.equus.feed.global.error
 
 data class ErrorResponse(
     val status: Int,

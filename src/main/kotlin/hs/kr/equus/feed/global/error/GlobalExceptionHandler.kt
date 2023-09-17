@@ -1,6 +1,6 @@
-package hs.kr.equus.user.global.error
+package hs.kr.equus.feed.global.error
 
-import hs.kr.equus.user.global.error.exception.EquusException
+import hs.kr.equus.feed.global.error.exception.EquusException
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.MethodArgumentNotValidException

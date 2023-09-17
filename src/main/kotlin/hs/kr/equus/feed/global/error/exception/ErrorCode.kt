@@ -1,11 +1,13 @@
-package hs.kr.equus.user.global.error.exception
+package hs.kr.equus.feed.global.error.exception
 
 enum class ErrorCode(
     val status: Int,
-    val code: String,
     val message: String
 ) {
-
     // Internal Server Error
-    INTERNAL_SERVER_ERROR(500, "COMMON500-0", "Internal Server Error"),
+    INTERNAL_SERVER_ERROR(500, "Internal Server Error"),
+
+    // UnAuthorization
+    INVALID_TOKEN(401, "Invalid Token"),
+    EXPIRED_TOKEN(401, "Expired Token")
 }
