@@ -52,10 +52,10 @@ class JwtTokenProvider(
 
     private fun getDetails(body: Claims): UserDetails {
         return if (Role.USER.toString() == body["role"].toString()) {
-            AuthDetails(body.subject)
+            AuthDetails(body.subject, body["role"].toString())
         } else {
             // 어드민 구현 후 추가 예정
-            AuthDetails(body.subject)
+            AuthDetails(body.subject, body["role"].toString())
         }
     }
 }

@@ -5,14 +5,11 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.security.core.userdetails.UserDetails
 
 class AuthDetails(
-    private val userId: String
+    private val userId: String,
+    private val userRole: String
 ) : UserDetails {
-    companion object {
-        private val ROLE_USER = "ROLE_USER"
-    }
-
     override fun getAuthorities(): Collection<GrantedAuthority?> {
-        return listOf<SimpleGrantedAuthority>(SimpleGrantedAuthority(ROLE_USER))
+        return listOf<SimpleGrantedAuthority>(SimpleGrantedAuthority("ROLE_$userRole"))
     }
 
     override fun getPassword(): String? {
