@@ -28,4 +28,10 @@ object Dependencies {
     // gson
     const val JSON = "org.json:json:${DependencyVersions.JSON_VERSION}"
 
+    // security
+    const val SPRING_SECURITY = "org.springframework.boot:spring-boot-starter-security"
+
+    // Jwt
+    const val JWT = "io.jsonwebtoken:jjwt:${DependencyVersions.JWT_VERSION}"
+
 }

@@ -1,7 +1,8 @@
-package hs.kr.equus.user.global.error
+package hs.kr.equus.feed.global.error
 
-import hs.kr.equus.user.global.error.exception.EquusException
-import hs.kr.equus.user.global.error.exception.ErrorCode
+import com.fasterxml.jackson.databind.ObjectMapper
+import hs.kr.equus.feed.global.error.exception.EquusException
+import hs.kr.equus.feed.global.error.exception.ErrorCode
 import io.sentry.Sentry
 import org.springframework.http.MediaType
 import org.springframework.web.filter.OncePerRequestFilter
@@ -11,7 +12,9 @@ import javax.servlet.FilterChain
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
-class GlobalExceptionFilter : OncePerRequestFilter() {
+class GlobalExceptionFilter(
+    private val objectMapper: ObjectMapper
+) : OncePerRequestFilter() {
 
     override fun doFilterInternal(
         request: HttpServletRequest,
@@ -21,6 +24,7 @@ class GlobalExceptionFilter : OncePerRequestFilter() {
         try {
             filterChain.doFilter(request, response)
         } catch (e: EquusException) {
+            println(e.errorCode)
             Sentry.captureException(e)
             writerErrorCode(response, e.errorCode)
         } catch (e: Exception) {
@@ -32,10 +36,10 @@ class GlobalExceptionFilter : OncePerRequestFilter() {
 
     @Throws(IOException::class)
     private fun writerErrorCode(response: HttpServletResponse, errorCode: ErrorCode) {
-        val errorResponse = ErrorResponse(errorCode.status, errorCode.code)
+        val errorResponse = ErrorResponse(errorCode.status, errorCode.message)
         response.status = errorCode.status
         response.characterEncoding = StandardCharsets.UTF_8.name()
         response.contentType = MediaType.APPLICATION_JSON_VALUE
-        response.writer.write(errorResponse.toString())
+        response.writer.write(objectMapper.writeValueAsString(errorResponse))
     }
 }

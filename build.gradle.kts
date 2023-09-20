@@ -3,8 +3,10 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     id("org.springframework.boot") version PluginVersions.SPRING_BOOT_VERSION
     id("io.spring.dependency-management") version PluginVersions.DEPENDENCY_MANAGER_VERSION
+    id("org.jlleitschuh.gradle.ktlint") version PluginVersions.KLINT_VERSION
     kotlin("jvm") version PluginVersions.JVM_VERSION
     kotlin("plugin.spring") version PluginVersions.SPRING_PLUGIN_VERSION
+    kotlin("plugin.jpa") version PluginVersions.JPA_PLUGIN_VERSION
 }
 
 group = "hs.kr.equus"
@@ -28,6 +30,9 @@ dependencies {
     // Web
     implementation(Dependencies.SPRING_WEB)
 
+    // Security
+    implementation(Dependencies.SPRING_SECURITY)
+
     // Kotlin
     implementation(Dependencies.JACKSON)
     implementation(Dependencies.KOTLIN_REFLECT)
@@ -41,6 +46,8 @@ dependencies {
     // Valid
     implementation(Dependencies.SPRING_VALIDATION)
 
+    // JWT
+    implementation(Dependencies.JWT)
 }
 
 tasks.withType<KotlinCompile> {
