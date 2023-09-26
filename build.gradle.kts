@@ -48,6 +48,9 @@ dependencies {
 
     // JWT
     implementation(Dependencies.JWT)
+
+    // Feign Client
+    implementation(Dependencies.OPEN_FEIGN)
 }
 
 tasks.withType<KotlinCompile> {
