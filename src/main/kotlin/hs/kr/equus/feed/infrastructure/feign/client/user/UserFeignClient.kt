@@ -9,5 +9,5 @@ import java.util.UUID
 @FeignClient(name = "UserClient", url = "\${url.user}")
 interface UserFeignClient {
     @GetMapping("/user")
-    fun getUserByUUID(@RequestParam("userId") userId: UUID) : UserResponse
+    fun getUserByUUID(@RequestParam("userId") userId: UUID): UserResponse
 }

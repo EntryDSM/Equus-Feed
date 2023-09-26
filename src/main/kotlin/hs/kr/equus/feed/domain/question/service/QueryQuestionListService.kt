@@ -13,7 +13,7 @@ class QueryQuestionListService(
     private val userFeignClient: UserFeignClient
 ) {
     @Transactional(readOnly = true)
-    fun execute() : QuestionListResponse {
+    fun execute(): QuestionListResponse {
         val questions = questionRepository.findAll().map { it ->
             QuestionDTO(
                 id = it.id,

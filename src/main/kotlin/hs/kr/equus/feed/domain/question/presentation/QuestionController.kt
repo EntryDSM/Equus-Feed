@@ -26,5 +26,5 @@ class QuestionController(
     }
 
     @GetMapping("/all")
-    fun getQuestionList() : QuestionListResponse = queryQuestionListService.execute()
+    fun getQuestionList(): QuestionListResponse = queryQuestionListService.execute()
 }
