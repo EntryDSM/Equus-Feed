@@ -16,7 +16,7 @@ class QueryQuestionListService(
     fun execute(): QuestionListResponse {
         val questions = questionRepository.findAll().map { it ->
             QuestionDTO(
-                id = it.id,
+                id = it.id!!,
                 title = it.title,
                 createdAt = it.createdAt,
                 username = userFeignClient.getUserByUUID(it.userId).name,
