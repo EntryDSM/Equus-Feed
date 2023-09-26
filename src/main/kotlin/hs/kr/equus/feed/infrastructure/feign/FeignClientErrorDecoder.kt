@@ -8,9 +8,9 @@ import hs.kr.equus.feed.infrastructure.feign.exception.FeignForbiddenException
 import hs.kr.equus.feed.infrastructure.feign.exception.FeignServerError
 import hs.kr.equus.feed.infrastructure.feign.exception.FeignUnAuthorizedException
 
-class FeignClientErrorDecoder: ErrorDecoder {
+class FeignClientErrorDecoder : ErrorDecoder {
     override fun decode(methodKey: String?, response: Response?): Exception {
-        if(response!!.status() >= 400) {
+        if (response!!.status() >= 400) {
             when (response.status()) {
                 400 -> throw FeignBadRequestException
                 401 -> throw FeignUnAuthorizedException
