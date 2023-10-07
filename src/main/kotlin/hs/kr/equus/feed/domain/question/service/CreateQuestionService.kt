@@ -21,7 +21,7 @@ class CreateQuestionService(
             content = createQuestionRequest.content,
             isPublic = createQuestionRequest.isPublic,
             isReplied = false,
-            userId = UUID.fromString(userUtils.getCurrentUserId())
+            userId = userUtils.getCurrentUserId()
         )
         questionRepository.save(question)
     }
