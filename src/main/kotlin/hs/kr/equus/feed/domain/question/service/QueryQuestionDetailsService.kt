@@ -31,10 +31,10 @@ class QueryQuestionDetailsService(
     }
 
     private fun validateAccessPermission(question: Question, userInfo: UserInfo) {
-        if (!question.isPublic && userInfo.userId != question.userId ) {
+        if (!question.isPublic && userInfo.userId != question.userId) {
             throw AccessDeniedQuestionException
         }
-        if(!question.isPublic && userInfo.userRole != "ROLE_${UserRole.ADMIN}" && question.userId != userInfo.userId) {
+        if (!question.isPublic && userInfo.userRole != "ROLE_${UserRole.ADMIN}" && question.userId != userInfo.userId) {
             throw AccessDeniedQuestionException
         }
     }
