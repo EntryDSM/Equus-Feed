@@ -25,18 +25,19 @@ class QueryQuestionDetailsService(
         val question = questionRepository.findByIdOrNull(questionId) ?: throw QuestionNotFoundException
         val userInfo = userUtils.getCurrentUserIdAndRole()
 
-        if (userInfo.userRole == "ROLE_${UserRole.ADMIN}") {
-            return createResponse(question, userInfo)
-        }
-
         validateAccessPermission(question, userInfo)
 
         return createResponse(question, userInfo)
     }
 
     private fun validateAccessPermission(question: Question, userInfo: UserInfo) {
-        if (!question.isPublic && userInfo.userId != question.userId) {
-            throw AccessDeniedQuestionException
+        if (!question.isPublic) {
+            if(question.userId != userInfo.userId) {
+                throw AccessDeniedQuestionException
+            }
+            if(userInfo.userRole != "ROLE_${UserRole.ADMIN}") {
+                throw AccessDeniedQuestionException
+            }
         }
     }
 
