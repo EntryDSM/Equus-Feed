@@ -26,7 +26,7 @@ class QueryQuestionDetailsService(
         val userInfo = userUtils.getCurrentUserIdAndRole()
 
         if (userInfo.userRole == "ROLE_${UserRole.ADMIN}") {
-            createResponse(question, userInfo)
+            return createResponse(question, userInfo)
         }
 
         validateAccessPermission(question, userInfo)
