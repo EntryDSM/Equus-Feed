@@ -10,17 +10,23 @@ class Question(
     id: UUID?,
 
     @Column(name = "title", columnDefinition = "varchar(100)", nullable = false)
-    val title: String,
+    var title: String,
 
     @Column(name = "content", columnDefinition = "varchar(1000)", nullable = false)
-    val content: String,
+    var content: String,
 
     @Column(name = "is_public", columnDefinition = "BIT(1) default 0", nullable = false)
-    val isPublic: Boolean,
+    var isPublic: Boolean,
 
     @Column(name = "is_replied", columnDefinition = "BIT(1) default 0", nullable = false)
-    val isReplied: Boolean,
+    var isReplied: Boolean,
 
     @Column(name = "user_id", columnDefinition = "BINARY(16)", nullable = false)
     val userId: UUID
-) : BaseEntity(id)
+) : BaseEntity(id) {
+    fun updateQuestion(title: String, content: String, isPublic: Boolean) {
+        this.title = title
+        this.content = content
+        this.isPublic = isPublic
+    }
+}
