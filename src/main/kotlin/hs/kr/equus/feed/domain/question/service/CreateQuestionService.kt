@@ -6,7 +6,6 @@ import hs.kr.equus.feed.domain.question.presentation.dto.request.CreateQuestionR
 import hs.kr.equus.feed.global.utils.user.UserUtils
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
-import java.util.*
 
 @Service
 class CreateQuestionService(
