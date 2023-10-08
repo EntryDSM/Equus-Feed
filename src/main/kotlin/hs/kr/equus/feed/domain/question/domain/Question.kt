@@ -1,6 +1,8 @@
 package hs.kr.equus.feed.domain.question.domain
 
 import hs.kr.equus.feed.domain.BaseEntity
+import hs.kr.equus.feed.domain.question.exception.FeedWriterMismatchException
+import hs.kr.equus.feed.infrastructure.feign.client.user.model.User
 import java.util.UUID
 import javax.persistence.Column
 import javax.persistence.Entity
@@ -24,9 +26,17 @@ class Question(
     @Column(name = "user_id", columnDefinition = "BINARY(16)", nullable = false)
     val userId: UUID
 ) : BaseEntity(id) {
-    fun updateQuestion(title: String, content: String, isPublic: Boolean) {
-        this.title = title
-        this.content = content
+    fun validateWriter(user: User) {
+        if (this.userId != user.id) {
+            throw FeedWriterMismatchException
+        }
+    }
+
+    fun updateQuestion(user: User, content: String, title: String, isPublic: Boolean) {
+        validateWriter(user)
+
+        this.title = content
+        this.content = title
         this.isPublic = isPublic
     }
 }

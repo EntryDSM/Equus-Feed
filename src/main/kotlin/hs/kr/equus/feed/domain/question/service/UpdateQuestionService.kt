@@ -1,7 +1,6 @@
 package hs.kr.equus.feed.domain.question.service
 
 import hs.kr.equus.feed.domain.question.domain.repository.QuestionRepository
-import hs.kr.equus.feed.domain.question.exception.FeedWriterMismatchException
 import hs.kr.equus.feed.domain.question.exception.QuestionNotFoundException
 import hs.kr.equus.feed.domain.question.presentation.dto.request.UpdateQuestionRequest
 import hs.kr.equus.feed.global.utils.user.UserUtils
@@ -20,14 +19,13 @@ class UpdateQuestionService(
         val user = userUtils.getCurrentUser()
         val question = questionRepository.findByIdOrNull(questionId) ?: throw QuestionNotFoundException
 
-        if (question.userId != user.id) {
-            throw FeedWriterMismatchException
+        updateQuestionRequest.run {
+            question.updateQuestion(
+                user = user,
+                title = title,
+                content = content,
+                isPublic = isPublic
+            )
         }
-
-        question.updateQuestion(
-            title = updateQuestionRequest.title,
-            content = updateQuestionRequest.content,
-            isPublic = updateQuestionRequest.isPublic
-        )
     }
 }
