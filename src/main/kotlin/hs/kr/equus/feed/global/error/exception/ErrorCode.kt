@@ -15,5 +15,11 @@ enum class ErrorCode(
 
     // UnAuthorization
     INVALID_TOKEN(401, "Invalid Token"),
-    EXPIRED_TOKEN(401, "Expired Token")
+    EXPIRED_TOKEN(401, "Expired Token"),
+
+    // Forbidden
+    ACCESS_DENIED_QUESTION(403, "No Permission To Access Question"),
+
+    // Not Found
+    QUESTION_NOT_FOUND(404, "Question Not Found")
 }

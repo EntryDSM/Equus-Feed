@@ -39,6 +39,6 @@ class JwtFilter : OncePerRequestFilter() {
 
 enum class UserRole {
     ROOT,
-    CONFIRM_APPLICATION,
+    ADMIN,
     USER
 }
