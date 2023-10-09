@@ -16,12 +16,12 @@ class UpdateQuestionService(
 ) {
     @Transactional
     fun execute(questionId: UUID, updateQuestionRequest: UpdateQuestionRequest) {
-        val user = userUtils.getCurrentUser()
+        val userId = userUtils.getCurrentUserId()
         val question = questionRepository.findByIdOrNull(questionId) ?: throw QuestionNotFoundException
 
         updateQuestionRequest.run {
             question.updateQuestion(
-                user = user,
+                userId = userId,
                 title = title,
                 content = content,
                 isPublic = isPublic
