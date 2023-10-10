@@ -5,12 +5,15 @@ import hs.kr.equus.feed.domain.question.presentation.dto.request.UpdateQuestionR
 import hs.kr.equus.feed.domain.question.presentation.dto.response.QuestionDetailsResponse
 import hs.kr.equus.feed.domain.question.presentation.dto.response.QuestionListResponse
 import hs.kr.equus.feed.domain.question.service.*
+import org.springframework.http.HttpStatus
+import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PatchMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestController
 import java.util.UUID
 import javax.validation.Valid
@@ -22,8 +25,10 @@ class QuestionController(
     private val queryQuestionListService: QueryQuestionListService,
     private val queryQuestionDetailsService: QueryQuestionDetailsService,
     private val updateQuestionService: UpdateQuestionService,
-    private val queryMyQuestionService: QueryMyQuestionService
+    private val queryMyQuestionService: QueryMyQuestionService,
+    private val deleteQuestionService: DeleteQuestionService
 ) {
+    @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
     fun createQuestion(
         @RequestBody @Valid
@@ -39,10 +44,15 @@ class QuestionController(
     fun getQuestionDetails(@PathVariable("questionId") questionId: UUID): QuestionDetailsResponse =
         queryQuestionDetailsService.execute(questionId)
 
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping("/{questionId}")
     fun updateQuestion(@PathVariable questionId: UUID, @RequestBody updateQuestionRequest: UpdateQuestionRequest) =
         updateQuestionService.execute(questionId, updateQuestionRequest)
 
     @GetMapping
     fun getMyQuestionList(): QuestionListResponse = queryMyQuestionService.execute()
+
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @DeleteMapping("/{questionId}")
+    fun deleteQuestion(@PathVariable("questionId") questionId: UUID) = deleteQuestionService.execute(questionId)
 }
