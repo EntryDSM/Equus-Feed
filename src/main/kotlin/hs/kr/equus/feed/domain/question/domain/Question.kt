@@ -38,4 +38,8 @@ class Question(
         this.content = title
         this.isPublic = isPublic
     }
+
+    fun markAsReplied() {
+        this.isReplied = true
+    }
 }
