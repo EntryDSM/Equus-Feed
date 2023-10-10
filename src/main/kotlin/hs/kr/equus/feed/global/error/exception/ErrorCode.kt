@@ -19,6 +19,7 @@ enum class ErrorCode(
 
     // Forbidden
     ACCESS_DENIED_QUESTION(403, "No Permission To Access Question"),
+    ACCESS_DENIED_REPLY(403, "No Permission To Comment Question"),
     FEED_WRITER_MISMATCH(403, "Feed Writer Mismatch"),
 
     // Not Found
