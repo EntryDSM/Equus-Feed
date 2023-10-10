@@ -9,6 +9,12 @@ plugins {
     kotlin("plugin.jpa") version PluginVersions.JPA_PLUGIN_VERSION
 }
 
+dependencyManagement {
+    imports {
+        mavenBom(Dependencies.SPRING_CLOUD)
+    }
+}
+
 group = "hs.kr.equus"
 version = "0.0.1-SNAPSHOT"
 
@@ -51,6 +57,9 @@ dependencies {
 
     // Feign Client
     implementation(Dependencies.OPEN_FEIGN)
+
+    // Cloud Config
+    implementation(Dependencies.CLOUD_CONFIG)
 }
 
 tasks.withType<KotlinCompile> {

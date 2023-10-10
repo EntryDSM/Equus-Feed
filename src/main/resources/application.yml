@@ -1,26 +1,7 @@
-# 추후 cloud config를 사용해서 관리합니다
 spring:
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: ${MYSQL_URL}
-    username: ${MYSQL_USERNAME}
-    password: ${MYSQL_PASSWORD}
-    hikari:
-      maxLifetime: 580000
-  jpa:
-    hibernate:
-      ddl-auto: update
-    show-sql: ${SHOW_SQL:true}
-    properties:
-      hibernate:
-        format_sql: ${FORMAT_SQL:true}
-    open-in-view: false
-    database: mysql
-
-auth:
-  jwt:
-    secretKey: ${JWT_SECRET_KEY:dGVzdA==}
-    header: ${JWT_HEADER:Authorization}
-    prefix: ${JWT_PREFIX:Bearer}
-server:
-  port: 8081
+    config:
+        import: ${CLOUD_CONFIG_IMPORT_URL:optional:configserver:http://43.202.181.155:8888/}
+    cloud:
+        config:
+            name: feed
+            profile: dev
