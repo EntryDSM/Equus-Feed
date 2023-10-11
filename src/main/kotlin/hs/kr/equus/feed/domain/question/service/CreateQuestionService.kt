@@ -15,7 +15,6 @@ class CreateQuestionService(
     @Transactional
     fun execute(createQuestionRequest: CreateQuestionRequest) {
         val question = Question(
-            id = null,
             title = createQuestionRequest.title,
             content = createQuestionRequest.content,
             isPublic = createQuestionRequest.isPublic,

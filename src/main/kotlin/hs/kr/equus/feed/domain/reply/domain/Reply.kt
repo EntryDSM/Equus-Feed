@@ -7,7 +7,7 @@ import javax.persistence.Entity
 
 @Entity(name = "tbl_reply")
 class Reply(
-    id: UUID?,
+    id: UUID? = null,
 
     @Column(name = "title", length = 150, nullable = false)
     val title: String,

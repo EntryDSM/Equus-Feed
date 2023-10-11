@@ -32,7 +32,6 @@ class CreateReplyService(
         createReplyRequest.run {
             replyRepository.save(
                 Reply(
-                    id = null,
                     title = title,
                     content = content,
                     questionId = question.id!!,
