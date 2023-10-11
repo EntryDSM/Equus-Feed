@@ -20,4 +20,4 @@ class Reply(
 
     @Column(name = "admin_id", nullable = false)
     val adminId: UUID
-): BaseEntity(id)
+) : BaseEntity(id)
