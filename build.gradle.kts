@@ -60,6 +60,9 @@ dependencies {
 
     // Cloud Config
     implementation(Dependencies.CLOUD_CONFIG)
+
+    // Kafka
+    implementation(Dependencies.KAFKA)
 }
 
 tasks.withType<KotlinCompile> {
