@@ -7,7 +7,7 @@ import org.springframework.kafka.annotation.KafkaListener
 import org.springframework.stereotype.Service
 
 @Service
-class CreateReplyConsumer(
+class ReplyCreatedEventConsumer(
     private val markAsRepliedService: MarkAsRepliedService
 ) {
     @KafkaListener(topics = [KafkaTopics.CREATE_REPLY], groupId = "entry", containerFactory = "replyDtoChangeListener")

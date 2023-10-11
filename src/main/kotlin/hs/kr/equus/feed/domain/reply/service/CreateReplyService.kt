@@ -6,7 +6,7 @@ import hs.kr.equus.feed.domain.reply.domain.Reply
 import hs.kr.equus.feed.domain.reply.domain.repository.ReplyRepository
 import hs.kr.equus.feed.domain.reply.presentation.dto.request.CreateReplyRequest
 import hs.kr.equus.feed.global.utils.user.UserUtils
-import hs.kr.equus.feed.infrastructure.kafka.producer.reply.CreateReplyProducer
+import hs.kr.equus.feed.infrastructure.kafka.producer.reply.ReplyCreatedEventProducer
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -17,7 +17,7 @@ class CreateReplyService(
     private val userUtils: UserUtils,
     private val replyRepository: ReplyRepository,
     private val questionRepository: QuestionRepository,
-    private val createReplyProducer: CreateReplyProducer
+    private val replyCreatedEventProducer: ReplyCreatedEventProducer
 ) {
     @Transactional
     fun execute(createReplyRequest: CreateReplyRequest, questionId: UUID) {
@@ -34,6 +34,6 @@ class CreateReplyService(
                 )
             )
         }
-        createReplyProducer.send(questionId)
+        replyCreatedEventProducer.send(questionId)
     }
 }

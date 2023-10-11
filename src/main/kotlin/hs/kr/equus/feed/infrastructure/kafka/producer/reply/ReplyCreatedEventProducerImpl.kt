@@ -7,9 +7,9 @@ import org.springframework.stereotype.Service
 import java.util.*
 
 @Service
-class CreateReplyProducerImpl(
+class ReplyCreatedEventProducerImpl(
     private val kafkaTemplate: KafkaTemplate<String, CreateReplyEventRequest>
-) : CreateReplyProducer {
+) : ReplyCreatedEventProducer {
     override fun send(questionId: UUID) {
         kafkaTemplate.send(KafkaTopics.CREATE_REPLY, CreateReplyEventRequest(questionId))
     }
