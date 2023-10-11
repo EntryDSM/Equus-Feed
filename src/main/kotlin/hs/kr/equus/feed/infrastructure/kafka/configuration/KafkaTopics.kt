@@ -1,7 +1,5 @@
-package hs.kr.equus.user.infrastructure.kafka.configuration
+package hs.kr.equus.feed.infrastructure.kafka.configuration
 
-class KafkaTopics {
-    companion object {
-        const val CREATE_REPLY = "create-reply"
-    }
+object KafkaTopics {
+    const val CREATE_REPLY = "create-reply"
 }
