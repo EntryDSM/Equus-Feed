@@ -1,7 +1,6 @@
 package hs.kr.equus.feed.global.security
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import hs.kr.equus.feed.global.security.jwt.UserRole
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
@@ -16,6 +15,7 @@ class SecurityConfig(
     companion object {
         const val ADMIN_ROLE = "ADMIN"
     }
+
     @Bean
     protected fun filterChain(http: HttpSecurity): SecurityFilterChain {
         http.csrf()

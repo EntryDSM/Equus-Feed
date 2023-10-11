@@ -4,9 +4,7 @@ import hs.kr.equus.feed.domain.question.domain.repository.QuestionRepository
 import hs.kr.equus.feed.domain.question.exception.QuestionNotFoundException
 import hs.kr.equus.feed.domain.reply.domain.Reply
 import hs.kr.equus.feed.domain.reply.domain.repository.ReplyRepository
-import hs.kr.equus.feed.domain.reply.exception.AccessDeniedReplyException
 import hs.kr.equus.feed.domain.reply.presentation.dto.request.CreateReplyRequest
-import hs.kr.equus.feed.global.security.jwt.UserRole
 import hs.kr.equus.feed.global.utils.user.UserUtils
 import hs.kr.equus.feed.infrastructure.kafka.producer.reply.CreateReplyProducer
 import org.springframework.data.repository.findByIdOrNull
