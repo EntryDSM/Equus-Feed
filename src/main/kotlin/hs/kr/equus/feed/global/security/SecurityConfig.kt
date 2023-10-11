@@ -12,6 +12,10 @@ import org.springframework.web.cors.CorsUtils
 class SecurityConfig(
     private val objectMapper: ObjectMapper
 ) {
+    companion object {
+        const val ADMIN_ROLE = "ADMIN"
+    }
+
     @Bean
     protected fun filterChain(http: HttpSecurity): SecurityFilterChain {
         http.csrf()
@@ -26,6 +30,8 @@ class SecurityConfig(
         http.authorizeRequests()
             .requestMatchers(CorsUtils::isCorsRequest)
             .permitAll()
+            .antMatchers("/reply/**")
+            .hasRole(ADMIN_ROLE)
             .anyRequest()
             .authenticated()
 

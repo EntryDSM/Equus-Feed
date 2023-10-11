@@ -8,7 +8,7 @@ import javax.persistence.Entity
 
 @Entity(name = "tbl_question")
 class Question(
-    id: UUID?,
+    id: UUID? = null,
 
     @Column(name = "title", columnDefinition = "varchar(100)", nullable = false)
     var title: String,
@@ -37,5 +37,9 @@ class Question(
         this.title = content
         this.content = title
         this.isPublic = isPublic
+    }
+
+    fun markAsReplied() {
+        this.isReplied = true
     }
 }
