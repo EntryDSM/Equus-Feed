@@ -10,14 +10,19 @@ class Reply(
     id: UUID? = null,
 
     @Column(name = "title", length = 150, nullable = false)
-    val title: String,
+    var title: String,
 
     @Column(name = "content", length = 5000, nullable = false)
-    val content: String,
+    var content: String,
 
     @Column(name = "question_id", nullable = false)
     val questionId: UUID,
 
     @Column(name = "admin_id", nullable = false)
     val adminId: UUID
-) : BaseEntity(id)
+) : BaseEntity(id) {
+    fun updateReply(title: String, content: String) {
+        this.title = title
+        this.content = content
+    }
+}

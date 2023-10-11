@@ -1,6 +1,7 @@
 package hs.kr.equus.feed.global.error
 
 import hs.kr.equus.feed.global.error.exception.EquusException
+import org.springframework.context.MessageSource
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.MethodArgumentNotValidException
@@ -8,7 +9,9 @@ import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.RestControllerAdvice
 
 @RestControllerAdvice
-class GlobalExceptionHandler {
+class GlobalExceptionHandler(
+    private val messageSource: MessageSource
+) {
 
     @ExceptionHandler(EquusException::class)
     fun handlingEquusException(e: EquusException): ResponseEntity<ErrorResponse> {
