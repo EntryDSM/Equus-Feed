@@ -1,6 +1,7 @@
 package hs.kr.equus.feed.global.security
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import hs.kr.equus.feed.global.security.jwt.UserRole
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
@@ -12,6 +13,9 @@ import org.springframework.web.cors.CorsUtils
 class SecurityConfig(
     private val objectMapper: ObjectMapper
 ) {
+    companion object {
+        const val ADMIN_ROLE = "ADMIN"
+    }
     @Bean
     protected fun filterChain(http: HttpSecurity): SecurityFilterChain {
         http.csrf()
@@ -26,6 +30,8 @@ class SecurityConfig(
         http.authorizeRequests()
             .requestMatchers(CorsUtils::isCorsRequest)
             .permitAll()
+            .antMatchers("/reply/**")
+            .hasRole(ADMIN_ROLE)
             .anyRequest()
             .authenticated()
 

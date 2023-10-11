@@ -25,9 +25,6 @@ class CreateReplyService(
     fun execute(createReplyRequest: CreateReplyRequest, questionId: UUID) {
         val question = questionRepository.findByIdOrNull(questionId) ?: throw QuestionNotFoundException
         val user = userUtils.getCurrentUser()
-        if (user.role != UserRole.ADMIN) {
-            throw AccessDeniedReplyException
-        }
 
         createReplyRequest.run {
             replyRepository.save(
