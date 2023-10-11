@@ -21,7 +21,7 @@ class Reply(
     @Column(name = "admin_id", nullable = false)
     val adminId: UUID
 ) : BaseEntity(id) {
-    fun updateReply(title: String, content: String){
+    fun updateReply(title: String, content: String) {
         this.title = title
         this.content = content
     }
