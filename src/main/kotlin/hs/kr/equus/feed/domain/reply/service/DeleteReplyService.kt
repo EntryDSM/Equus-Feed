@@ -12,7 +12,7 @@ class DeleteReplyService(
     private val replyRepository: ReplyRepository
 ) {
     @Transactional
-    fun execute(replyId: UUID){
+    fun execute(replyId: UUID) {
         val reply = replyRepository.findByIdOrNull(replyId) ?: throw ReplyNotFoundException
         replyRepository.delete(reply)
     }
