@@ -15,10 +15,10 @@ class Reply(
     @Column(name = "content", length = 5000, nullable = false)
     var content: String,
 
-    @Column(name = "question_id", nullable = false)
+    @Column(name = "question_id", columnDefinition = "BINARY(16)", nullable = false)
     val questionId: UUID,
 
-    @Column(name = "admin_id", nullable = false)
+    @Column(name = "admin_id", columnDefinition = "BINARY(16)", nullable = false)
     val adminId: UUID
 ) : BaseEntity(id) {
     fun updateReply(title: String, content: String) {
