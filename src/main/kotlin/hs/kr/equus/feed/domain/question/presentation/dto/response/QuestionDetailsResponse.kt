@@ -1,5 +1,6 @@
 package hs.kr.equus.feed.domain.question.presentation.dto.response
 
+import hs.kr.equus.feed.domain.reply.presentation.dto.response.ReplyDto
 import java.time.LocalDateTime
 import java.util.UUID
 
@@ -11,6 +12,6 @@ data class QuestionDetailsResponse(
     val isReplied: Boolean,
     val isMine: Boolean,
     val isPublic: Boolean,
-    val createdAt: LocalDateTime
-    // Reply는 추후 Reply 개발 후 추가할 계획입니다
+    val createdAt: LocalDateTime,
+    val reply: ReplyDto?
 )

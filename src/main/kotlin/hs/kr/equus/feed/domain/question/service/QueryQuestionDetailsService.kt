@@ -5,6 +5,8 @@ import hs.kr.equus.feed.domain.question.domain.repository.QuestionRepository
 import hs.kr.equus.feed.domain.question.exception.AccessDeniedQuestionException
 import hs.kr.equus.feed.domain.question.exception.QuestionNotFoundException
 import hs.kr.equus.feed.domain.question.presentation.dto.response.QuestionDetailsResponse
+import hs.kr.equus.feed.domain.reply.presentation.dto.response.ReplyDto
+import hs.kr.equus.feed.domain.reply.service.GetReplyService
 import hs.kr.equus.feed.global.security.jwt.UserRole
 import hs.kr.equus.feed.global.utils.user.UserUtils
 import hs.kr.equus.feed.infrastructure.feign.client.user.UserFeignClient
@@ -17,6 +19,7 @@ import java.util.*
 @Service
 class QueryQuestionDetailsService(
     private val questionRepository: QuestionRepository,
+    private val getReplyService: GetReplyService,
     private val userUtils: UserUtils,
     private val userFeignClient: UserFeignClient
 ) {
@@ -50,8 +53,12 @@ class QueryQuestionDetailsService(
             isReplied = question.isReplied,
             isMine = (question.userId == user.id),
             isPublic = question.isPublic,
-            createdAt = question.createdAt
-            // Reply 개발 후 Response 에 추가합니다
+            createdAt = question.createdAt,
+            reply = getReplyDto(question.id)
         )
+    }
+
+    private fun getReplyDto(questionId: UUID): ReplyDto? {
+        return getReplyService.execute(questionId)
     }
 }
