@@ -5,8 +5,8 @@ import hs.kr.equus.feed.domain.question.domain.repository.QuestionRepository
 import hs.kr.equus.feed.domain.question.exception.AccessDeniedQuestionException
 import hs.kr.equus.feed.domain.question.exception.QuestionNotFoundException
 import hs.kr.equus.feed.domain.question.presentation.dto.response.QuestionDetailsResponse
+import hs.kr.equus.feed.domain.reply.domain.repository.ReplyRepository
 import hs.kr.equus.feed.domain.reply.presentation.dto.response.ReplyDto
-import hs.kr.equus.feed.domain.reply.service.GetReplyService
 import hs.kr.equus.feed.global.security.jwt.UserRole
 import hs.kr.equus.feed.global.utils.user.UserUtils
 import hs.kr.equus.feed.infrastructure.feign.client.user.UserFeignClient
@@ -19,7 +19,7 @@ import java.util.*
 @Service
 class QueryQuestionDetailsService(
     private val questionRepository: QuestionRepository,
-    private val getReplyService: GetReplyService,
+    private val replyRepository: ReplyRepository,
     private val userUtils: UserUtils,
     private val userFeignClient: UserFeignClient
 ) {
@@ -59,6 +59,13 @@ class QueryQuestionDetailsService(
     }
 
     private fun getReplyDto(questionId: UUID): ReplyDto? {
-        return getReplyService.execute(questionId)
+        val reply = replyRepository.findByQuestionId(questionId)
+        return reply?.run {
+            ReplyDto(
+                title = title,
+                content = content,
+                createdAt = createdAt
+            )
+        }
     }
 }
