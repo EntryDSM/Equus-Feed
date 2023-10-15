@@ -1,6 +1,7 @@
 package hs.kr.equus.feed.infrastructure.kafka.configuration
 
-import hs.kr.equus.user.infrastructure.kafka.dto.CreateReplyEventRequest
+import hs.kr.equus.feed.infrastructure.kafka.dto.CreateReplyEventRequest
+import hs.kr.equus.feed.infrastructure.kafka.dto.DeleteReplyEventRequest
 import org.apache.kafka.clients.consumer.ConsumerConfig
 import org.apache.kafka.clients.producer.ProducerConfig
 import org.apache.kafka.common.serialization.StringDeserializer
@@ -30,7 +31,7 @@ class KafkaConfig(
     }
 
     @Bean
-    fun replyConsumer(): ConsumerFactory<String, CreateReplyEventRequest> {
+    fun createReplyConsumer(): ConsumerFactory<String, CreateReplyEventRequest> {
         return DefaultKafkaConsumerFactory(
             consumerConfigFactory(),
             StringDeserializer(),
@@ -39,9 +40,35 @@ class KafkaConfig(
     }
 
     @Bean
-    fun replyDtoChangeListener(): ConcurrentKafkaListenerContainerFactory<String, CreateReplyEventRequest> {
+    fun createReplyDtoChangeListener(): ConcurrentKafkaListenerContainerFactory<String, CreateReplyEventRequest> {
         val factory = ConcurrentKafkaListenerContainerFactory<String, CreateReplyEventRequest>()
-        factory.consumerFactory = replyConsumer()
+        factory.consumerFactory = createReplyConsumer()
+        return factory
+    }
+
+    @Bean
+    fun deleteReplyProducerFactory(): DefaultKafkaProducerFactory<String, DeleteReplyEventRequest> {
+        return DefaultKafkaProducerFactory(producerConfig())
+    }
+
+    @Bean
+    fun deleteReplyKafkaTemplate(): KafkaTemplate<String, DeleteReplyEventRequest> {
+        return KafkaTemplate(deleteReplyProducerFactory())
+    }
+
+    @Bean
+    fun deleteReplyConsumer(): ConsumerFactory<String, DeleteReplyEventRequest> {
+        return DefaultKafkaConsumerFactory(
+            consumerConfigFactory(),
+            StringDeserializer(),
+            JsonDeserializer(DeleteReplyEventRequest::class.java)
+        )
+    }
+
+    @Bean
+    fun deleteReplyDtoChangeListener(): ConcurrentKafkaListenerContainerFactory<String, DeleteReplyEventRequest> {
+        val factory = ConcurrentKafkaListenerContainerFactory<String, DeleteReplyEventRequest>()
+        factory.consumerFactory = deleteReplyConsumer()
         return factory
     }
 

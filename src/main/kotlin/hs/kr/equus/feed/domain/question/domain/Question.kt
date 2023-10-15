@@ -42,4 +42,8 @@ class Question(
     fun markAsReplied() {
         this.isReplied = true
     }
+
+    fun markAsNotReplied() {
+        this.isReplied = false
+    }
 }
