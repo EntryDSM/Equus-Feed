@@ -39,7 +39,7 @@ class Question(
         this.isPublic = isPublic
     }
 
-    fun markAsReplied() {
-        this.isReplied = true
+    fun updateIsReplied(isReplied: Boolean) {
+        this.isReplied = isReplied
     }
 }
