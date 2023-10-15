@@ -24,5 +24,8 @@ enum class ErrorCode(
 
     // Not Found
     QUESTION_NOT_FOUND(404, "Question Not Found"),
-    REPLY_NOT_FOUND(404, "Reply Not Found")
+    REPLY_NOT_FOUND(404, "Reply Not Found"),
+
+    // Conflict
+    REPLY_EXISTS(409, "Reply Already Exists")
 }
