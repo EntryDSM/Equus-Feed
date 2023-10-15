@@ -1,7 +1,7 @@
 package hs.kr.equus.feed.infrastructure.kafka.producer.reply
 
-import java.util.UUID
+import hs.kr.equus.feed.infrastructure.kafka.dto.CreateReplyEventRequest
 
 interface ReplyCreatedEventProducer {
-    fun send(questionId: UUID)
+    fun send(createEventRequest: CreateReplyEventRequest)
 }

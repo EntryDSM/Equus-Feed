@@ -6,6 +6,7 @@ import hs.kr.equus.feed.domain.reply.domain.Reply
 import hs.kr.equus.feed.domain.reply.domain.repository.ReplyRepository
 import hs.kr.equus.feed.domain.reply.presentation.dto.request.CreateReplyRequest
 import hs.kr.equus.feed.global.utils.user.UserUtils
+import hs.kr.equus.feed.infrastructure.kafka.dto.CreateReplyEventRequest
 import hs.kr.equus.feed.infrastructure.kafka.producer.reply.ReplyCreatedEventProducer
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
@@ -34,6 +35,6 @@ class CreateReplyService(
                 )
             )
         }
-        replyCreatedEventProducer.send(questionId)
+        replyCreatedEventProducer.send(CreateReplyEventRequest(questionId))
     }
 }
