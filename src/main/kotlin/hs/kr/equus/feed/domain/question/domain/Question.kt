@@ -39,11 +39,7 @@ class Question(
         this.isPublic = isPublic
     }
 
-    fun markAsReplied() {
-        this.isReplied = true
-    }
-
-    fun markAsNotReplied() {
-        this.isReplied = false
+    fun updateIsReplied(isReplied: Boolean) {
+        this.isReplied = isReplied
     }
 }

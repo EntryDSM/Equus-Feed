@@ -6,19 +6,16 @@ import hs.kr.equus.feed.domain.reply.domain.Reply
 import hs.kr.equus.feed.domain.reply.domain.repository.ReplyRepository
 import hs.kr.equus.feed.domain.reply.presentation.dto.request.CreateReplyRequest
 import hs.kr.equus.feed.global.utils.user.UserUtils
-import hs.kr.equus.feed.infrastructure.kafka.dto.CreateReplyEventRequest
-import hs.kr.equus.feed.infrastructure.kafka.producer.reply.ReplyCreatedEventProducer
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
-import java.util.UUID
+import java.util.*
 
 @Service
 class CreateReplyService(
     private val userUtils: UserUtils,
     private val replyRepository: ReplyRepository,
-    private val questionRepository: QuestionRepository,
-    private val replyCreatedEventProducer: ReplyCreatedEventProducer
+    private val questionRepository: QuestionRepository
 ) {
     @Transactional
     fun execute(createReplyRequest: CreateReplyRequest, questionId: UUID) {
@@ -35,6 +32,6 @@ class CreateReplyService(
                 )
             )
         }
-        replyCreatedEventProducer.send(CreateReplyEventRequest(questionId))
+        question.updateIsReplied(true)
     }
 }

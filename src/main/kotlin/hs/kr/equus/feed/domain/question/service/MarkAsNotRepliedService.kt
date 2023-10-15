@@ -14,6 +14,6 @@ class MarkAsNotRepliedService(
     @Transactional
     fun execute(questionId: UUID) {
         val question = questionRepository.findByIdOrNull(questionId) ?: throw QuestionNotFoundException
-        question.markAsNotReplied()
+        question.updateIsReplied(false)
     }
 }
