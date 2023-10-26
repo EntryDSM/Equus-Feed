@@ -13,13 +13,13 @@ class CreateFaqService(
     private val userUtils: UserUtils
 ) {
     @Transactional
-    fun execute(createFaqRequest: CreateFaqRequest){
+    fun execute(createFaqRequest: CreateFaqRequest) {
         val faq = Faq(
             title = createFaqRequest.title,
             content = createFaqRequest.content,
             faqType = createFaqRequest.faqType,
             adminId = userUtils.getCurrentUserId()
         )
-        faqRepository.save(faq);
+        faqRepository.save(faq)
     }
 }

@@ -1,6 +1,5 @@
 package hs.kr.equus.feed.domain.faq.presentation
 
-import hs.kr.equus.feed.domain.faq.domain.repository.FaqRepository
 import hs.kr.equus.feed.domain.faq.presentation.dto.request.CreateFaqRequest
 import hs.kr.equus.feed.domain.faq.service.CreateFaqService
 import org.springframework.http.HttpStatus
@@ -18,5 +17,8 @@ class FaqPresentation(
 ) {
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    fun createFaq(@RequestBody @Validated createFaqRequest: CreateFaqRequest) = createFaqService.execute(createFaqRequest)
+    fun createFaq(
+        @RequestBody @Validated
+        createFaqRequest: CreateFaqRequest
+    ) = createFaqService.execute(createFaqRequest)
 }

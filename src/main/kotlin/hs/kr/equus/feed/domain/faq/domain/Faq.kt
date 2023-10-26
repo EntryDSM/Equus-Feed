@@ -1,7 +1,6 @@
 package hs.kr.equus.feed.domain.faq.domain
 
 import hs.kr.equus.feed.domain.BaseEntity
-import hs.kr.equus.feed.domain.BaseTimeEntity
 import hs.kr.equus.feed.domain.faq.domain.type.FaqType
 import java.util.UUID
 import javax.persistence.Column
