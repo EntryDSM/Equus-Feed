@@ -11,7 +11,7 @@ import javax.persistence.Enumerated
 
 @Entity(name = "tbl_faq")
 class Faq(
-    id: UUID,
+    id: UUID? = null,
 
     @Column(name = "title", length = 100, nullable = false)
     val title: String,
