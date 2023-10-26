@@ -32,6 +32,8 @@ class SecurityConfig(
             .permitAll()
             .antMatchers("/reply/**")
             .hasRole(ADMIN_ROLE)
+            .antMatchers("/faq/**")
+            .hasRole(ADMIN_ROLE)
             .anyRequest()
             .authenticated()
 
