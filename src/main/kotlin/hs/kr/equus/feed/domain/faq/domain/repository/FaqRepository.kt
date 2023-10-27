@@ -6,5 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository
 import java.util.UUID
 
 interface FaqRepository : JpaRepository<Faq, UUID> {
-    fun findAllByFaqType(faqType: FaqType) : List<Faq>
+    fun findAllByFaqType(faqType: FaqType): List<Faq>
 }

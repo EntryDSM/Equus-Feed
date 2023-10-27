@@ -12,7 +12,7 @@ class QueryFaqListByTypeService(
     private val faqRepository: FaqRepository
 ) {
     @Transactional
-    fun execute(faqType: FaqType) : FaqListResponse{
+    fun execute(faqType: FaqType): FaqListResponse {
         val faqs = faqRepository.findAllByFaqType(faqType).map {
             FaqDto(
                 id = it.id!!,
