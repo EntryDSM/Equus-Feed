@@ -13,13 +13,13 @@ class QueryFaqDetailsService(
     private val faqRepository: FaqRepository
 ) {
     @Transactional
-    fun execute(faqId: UUID) : FaqDetailsResponse{
+    fun execute(faqId: UUID): FaqDetailsResponse {
         val faq = faqRepository.findByIdOrNull(faqId) ?: throw FaqNotFoundException
         return FaqDetailsResponse(
             title = faq.title,
             content = faq.content,
             createdAt = faq.createdAt,
-            faqType =  faq.faqType
+            faqType = faq.faqType
         )
     }
 }
