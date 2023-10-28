@@ -2,15 +2,14 @@ package hs.kr.equus.feed.domain.faq.presentation
 
 import hs.kr.equus.feed.domain.faq.domain.type.FaqType
 import hs.kr.equus.feed.domain.faq.presentation.dto.request.CreateFaqRequest
+import hs.kr.equus.feed.domain.faq.presentation.dto.request.UpdateFaqRequest
 import hs.kr.equus.feed.domain.faq.presentation.dto.response.FaqDetailsResponse
 import hs.kr.equus.feed.domain.faq.presentation.dto.response.FaqListResponse
-import hs.kr.equus.feed.domain.faq.service.CreateFaqService
-import hs.kr.equus.feed.domain.faq.service.QueryFaqDetailsService
-import hs.kr.equus.feed.domain.faq.service.QueryFaqListByTypeService
-import hs.kr.equus.feed.domain.faq.service.QueryFaqListService
+import hs.kr.equus.feed.domain.faq.service.*
 import org.springframework.http.HttpStatus
 import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PatchMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
@@ -22,11 +21,12 @@ import java.util.UUID
 
 @RequestMapping("/faq")
 @RestController
-class FaqPresentation(
+class FaqController(
     private val createFaqService: CreateFaqService,
     private val queryFaqDetailsService: QueryFaqDetailsService,
     private val queryFaqListByTypeService: QueryFaqListByTypeService,
-    private val queryFaqListService: QueryFaqListService
+    private val queryFaqListService: QueryFaqListService,
+    private val updateFaqService: UpdateFaqService
 ) {
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
@@ -45,4 +45,8 @@ class FaqPresentation(
 
     @GetMapping("/all")
     fun queryFaqList(): FaqListResponse = queryFaqListService.execute()
+
+    @PatchMapping("/{faq-id}")
+    fun updateFaq(@PathVariable("faq-id") faqId: UUID, updateFaqRequest: UpdateFaqRequest) =
+        updateFaqService.execute(faqId, updateFaqRequest)
 }
