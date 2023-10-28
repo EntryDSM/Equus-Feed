@@ -3,6 +3,7 @@ package hs.kr.equus.feed.global.security
 import com.fasterxml.jackson.databind.ObjectMapper
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.http.HttpMethod
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.http.SessionCreationPolicy
 import org.springframework.security.web.SecurityFilterChain
@@ -32,7 +33,11 @@ class SecurityConfig(
             .permitAll()
             .antMatchers("/reply/**")
             .hasRole(ADMIN_ROLE)
-            .antMatchers("/faq/**")
+            .antMatchers(HttpMethod.POST, "/faq/**")
+            .hasRole(ADMIN_ROLE)
+            .antMatchers(HttpMethod.PATCH, "/faq/**")
+            .hasRole(ADMIN_ROLE)
+            .antMatchers(HttpMethod.DELETE, "/faq/**")
             .hasRole(ADMIN_ROLE)
             .anyRequest()
             .authenticated()
