@@ -13,14 +13,21 @@ class Faq(
     id: UUID? = null,
 
     @Column(name = "title", length = 100, nullable = false)
-    val title: String,
+    var title: String,
 
     @Column(name = "content", length = 5000, nullable = false)
-    val content: String,
+    var content: String,
 
     @Enumerated(EnumType.STRING)
-    val faqType: FaqType,
+    var faqType: FaqType,
 
     @Column(name = "admin_id", columnDefinition = "BINARY(16)", nullable = false)
-    val adminId: UUID
-) : BaseEntity(id)
+    var adminId: UUID
+) : BaseEntity(id) {
+    fun updateFaq(title: String, content: String, faqType: FaqType, adminId: UUID) {
+        this.title = title
+        this.content = content
+        this.faqType = faqType
+        this.adminId = adminId
+    }
+}
