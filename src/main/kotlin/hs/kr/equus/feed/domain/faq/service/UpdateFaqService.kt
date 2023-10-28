@@ -17,11 +17,13 @@ class UpdateFaqService(
     @Transactional
     fun execute(faqId: UUID, updateFaqRequest: UpdateFaqRequest) {
         val faq = faqRepository.findByIdOrNull(faqId) ?: throw FaqNotFoundException
-        faq.updateFaq(
-            title = updateFaqRequest.title,
-            content = updateFaqRequest.content,
-            faqType = updateFaqRequest.faqType,
-            adminId = userUtils.getCurrentUserId()
-        )
+        updateFaqRequest.run {
+            faq.updateFaq(
+                title = title,
+                content = content,
+                faqType = faqType,
+                adminId = userUtils.getCurrentUserId()
+            )
+        }
     }
 }
