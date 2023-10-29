@@ -49,7 +49,11 @@ class FaqController(
     fun queryFaqList(): FaqListResponse = queryFaqListService.execute()
 
     @PatchMapping("/{faq-id}")
-    fun updateFaq(@PathVariable("faq-id") faqId: UUID, @RequestBody @Validated updateFaqRequest: UpdateFaqRequest) =
+    fun updateFaq(
+        @PathVariable("faq-id") faqId: UUID,
+        @RequestBody @Validated
+        updateFaqRequest: UpdateFaqRequest
+    ) =
         updateFaqService.execute(faqId, updateFaqRequest)
 
     @DeleteMapping("/{faq-id}")
