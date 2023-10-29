@@ -11,4 +11,4 @@ class BannerLink(
 
     @Column(name = "link", nullable = false)
     val link: String
-): BaseEntity(id)
+) : BaseEntity(id)
