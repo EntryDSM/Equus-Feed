@@ -8,6 +8,7 @@ import hs.kr.equus.feed.domain.faq.presentation.dto.response.FaqListResponse
 import hs.kr.equus.feed.domain.faq.service.*
 import org.springframework.http.HttpStatus
 import org.springframework.validation.annotation.Validated
+import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PatchMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -26,7 +27,8 @@ class FaqController(
     private val queryFaqDetailsService: QueryFaqDetailsService,
     private val queryFaqListByTypeService: QueryFaqListByTypeService,
     private val queryFaqListService: QueryFaqListService,
-    private val updateFaqService: UpdateFaqService
+    private val updateFaqService: UpdateFaqService,
+    private val deleteFaqService: DeleteFaqService
 ) {
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
@@ -47,6 +49,13 @@ class FaqController(
     fun queryFaqList(): FaqListResponse = queryFaqListService.execute()
 
     @PatchMapping("/{faq-id}")
-    fun updateFaq(@PathVariable("faq-id") faqId: UUID, updateFaqRequest: UpdateFaqRequest) =
+    fun updateFaq(
+        @PathVariable("faq-id") faqId: UUID,
+        @RequestBody @Validated
+        updateFaqRequest: UpdateFaqRequest
+    ) =
         updateFaqService.execute(faqId, updateFaqRequest)
+
+    @DeleteMapping("/{faq-id}")
+    fun deleteFaq(@PathVariable("faq-id") faqId: UUID) = deleteFaqService.execute(faqId)
 }
