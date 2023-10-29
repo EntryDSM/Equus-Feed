@@ -12,7 +12,7 @@ class DeleteFaqService(
     private val faqRepository: FaqRepository
 ) {
     @Transactional
-    fun execute(faqId: UUID){
+    fun execute(faqId: UUID) {
         val faq = faqRepository.findByIdOrNull(faqId) ?: throw FaqNotFoundException
         faqRepository.delete(faq)
     }
