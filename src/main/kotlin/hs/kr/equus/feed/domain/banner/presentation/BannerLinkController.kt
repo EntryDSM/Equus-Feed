@@ -16,6 +16,6 @@ class BannerLinkController(
 ) {
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    fun createBannerLink(@RequestPart(name = "photo") file: MultipartFile) : String =
+    fun createBannerLink(@RequestPart(name = "photo") file: MultipartFile): String =
         createBannerLinkService.execute(file)
 }
