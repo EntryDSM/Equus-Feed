@@ -11,7 +11,4 @@ class BannerLink(
 
     @Column(name = "file_name", nullable = false)
     val fileName: String,
-
-    @Column(name = "url", nullable = false)
-    val url: String
 ) : BaseEntity(id)
