@@ -26,7 +26,6 @@ enum class ErrorCode(
     QUESTION_NOT_FOUND(404, "Question Not Found"),
     REPLY_NOT_FOUND(404, "Reply Not Found"),
     FAQ_NOT_FOUND(404, "Faq Not Found"),
-    BANNERLINK_NOT_FOUND(404, "BannerLink Not Found"),
 
     // Conflict
     REPLY_EXISTS(409, "Reply Already Exists")
