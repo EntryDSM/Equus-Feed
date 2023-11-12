@@ -10,5 +10,10 @@ class BannerLink(
     id: UUID? = null,
 
     @Column(name = "link", nullable = false)
-    val link: String
-) : BaseEntity(id)
+    var link: String
+) : BaseEntity(id) {
+
+    fun updateBanner(link: String) {
+        this.link = link
+    }
+}
