@@ -1,0 +1,8 @@
+FROM openjdk:17
+ENV TZ=Asia/Seoul
+COPY build/libs/Equus-Feed-0.0.1-SNAPSHOT.jar app.jar
+
+ARG CLOUD_CONFIG_IMPORT_URL
+ENV CLOUD_CONFIG_IMPORT_URL=$CLOUD_CONFIG_IMPORT_URL
+
+ENTRYPOINT ["java", "-jar", "app.jar"]
