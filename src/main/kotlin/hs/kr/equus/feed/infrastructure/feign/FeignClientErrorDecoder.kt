@@ -10,6 +10,7 @@ import hs.kr.equus.feed.infrastructure.feign.exception.FeignUnAuthorizedExceptio
 
 class FeignClientErrorDecoder : ErrorDecoder {
     override fun decode(methodKey: String?, response: Response?): Exception {
+        print("feign error : ${response?.reason()}")
         if (response!!.status() >= 400) {
             when (response.status()) {
                 400 -> throw FeignBadRequestException
