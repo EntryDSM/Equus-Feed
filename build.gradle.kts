@@ -63,6 +63,9 @@ dependencies {
 
     // Kafka
     implementation(Dependencies.KAFKA)
+
+    // Actuator
+    implementation(Dependencies.ACTUATOR)
 }
 
 tasks.withType<KotlinCompile> {

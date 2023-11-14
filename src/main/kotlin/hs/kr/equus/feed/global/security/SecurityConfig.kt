@@ -31,6 +31,8 @@ class SecurityConfig(
         http.authorizeRequests()
             .requestMatchers(CorsUtils::isCorsRequest)
             .permitAll()
+            .antMatchers("/actuator/health")
+            .permitAll()
             .antMatchers("/reply/**")
             .hasRole(ADMIN_ROLE)
             .antMatchers(HttpMethod.POST, "/faq/**")

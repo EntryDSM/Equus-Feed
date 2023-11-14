@@ -42,4 +42,7 @@ object Dependencies {
 
     // Kafka
     const val KAFKA = "org.springframework.kafka:spring-kafka"
+
+    // Actuator
+    const val ACTUATOR = "org.springframework.boot:spring-boot-starter-actuator"
 }
