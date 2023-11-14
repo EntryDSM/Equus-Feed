@@ -5,3 +5,12 @@ spring:
         config:
             name: feed
             profile: dev
+
+management:
+    endpoints:
+        web:s
+            exposure:
+                include: health, refresh, busrefresh
+            base-path: /
+            path-mapping:
+                health: /
