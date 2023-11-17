@@ -1,7 +1,7 @@
 FROM openjdk:17
 ENV TZ=Asia/Seoul
 COPY build/libs/Equus-Feed-0.0.1-SNAPSHOT.jar app.jar
-COPY /home/ec2-user/dd-java-agent.jar /usr/agent/dd-java-agent.jar
+COPY /datadog/dd-java-agent.jar /usr/agent/dd-java-agent.jar
 
 ARG CLOUD_CONFIG_IMPORT_URL
 ENV CLOUD_CONFIG_IMPORT_URL=$CLOUD_CONFIG_IMPORT_URL
