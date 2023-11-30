@@ -11,7 +11,7 @@ class DeleteReplyTableConsumerService(
     private val replyRepository: ReplyRepository
 ) {
 
+    @KafkaListener(topics = [KafkaTopics.DELETE_ALL_TABLE], groupId = "\${kafka.consumer.groupId3}")
     @Transactional
-    @KafkaListener(topics = [KafkaTopics.DELETE_ALL_TABLE], groupId = "\${kafka.consumer.groupId}")
     fun execute() = replyRepository.deleteAll()
 }
