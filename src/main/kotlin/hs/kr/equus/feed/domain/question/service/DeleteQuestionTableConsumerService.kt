@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional
 class DeleteQuestionTableConsumerService(
     private val questionRepository: QuestionRepository
 ) {
-    @KafkaListener(topics = [KafkaTopics.DELETE_ALL_TABLE], groupId = "\${kafka.consumer.groupId2}")
+    @KafkaListener(topics = [KafkaTopics.DELETE_ALL_TABLE], groupId = "delete-all-table-question")
     @Transactional
     fun execute() {
         questionRepository.deleteAll()
