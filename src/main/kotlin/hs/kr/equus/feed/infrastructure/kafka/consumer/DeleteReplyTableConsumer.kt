@@ -11,7 +11,11 @@ class DeleteReplyTableConsumer(
     private val replyRepository: ReplyRepository
 ) {
 
-    @KafkaListener(topics = [KafkaTopics.DELETE_ALL_TABLE], groupId = "delete-all-table-reply")
+    @KafkaListener(
+        topics = [KafkaTopics.DELETE_ALL_TABLE],
+        groupId = "delete-all-table-reply",
+        containerFactory = "kafkaListenerContainerFactory"
+    )
     @Transactional
     fun execute() = replyRepository.deleteAll()
 }
