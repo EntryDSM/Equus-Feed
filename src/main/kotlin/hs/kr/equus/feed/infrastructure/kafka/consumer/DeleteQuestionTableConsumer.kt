@@ -1,4 +1,4 @@
-package hs.kr.equus.feed.domain.question.service
+package hs.kr.equus.feed.infrastructure.kafka.consumer
 
 import hs.kr.equus.feed.domain.question.domain.repository.QuestionRepository
 import hs.kr.equus.feed.infrastructure.kafka.configuration.KafkaTopics
@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
 @Service
-class DeleteQuestionTableConsumerService(
+class DeleteQuestionTableConsumer(
     private val questionRepository: QuestionRepository
 ) {
     @KafkaListener(topics = [KafkaTopics.DELETE_ALL_TABLE], groupId = "delete-all-table-question")

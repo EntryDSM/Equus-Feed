@@ -1,4 +1,4 @@
-package hs.kr.equus.feed.domain.reply.service
+package hs.kr.equus.feed.infrastructure.kafka.consumer
 
 import hs.kr.equus.feed.domain.reply.domain.repository.ReplyRepository
 import hs.kr.equus.feed.infrastructure.kafka.configuration.KafkaTopics
@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
 @Service
-class DeleteReplyTableConsumerService(
+class DeleteReplyTableConsumer(
     private val replyRepository: ReplyRepository
 ) {
 
