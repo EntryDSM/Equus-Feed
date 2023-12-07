@@ -6,4 +6,5 @@ import java.util.UUID
 
 interface QuestionRepository : JpaRepository<Question, UUID> {
     fun findAllByUserId(userId: UUID): List<Question>
+    fun deleteQuestionByUserId(userId: UUID): Question
 }
