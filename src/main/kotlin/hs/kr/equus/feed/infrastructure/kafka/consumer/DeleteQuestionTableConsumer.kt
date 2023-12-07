@@ -16,7 +16,5 @@ class DeleteQuestionTableConsumer(
         containerFactory = "kafkaListenerContainerFactory"
     )
     @Transactional
-    fun execute() {
-        questionRepository.deleteAll()
-    }
+    fun execute() = questionRepository.deleteAll()
 }
