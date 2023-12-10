@@ -17,5 +17,5 @@ class DeleteUserQuestionConsumer(
         containerFactory = "kafkaListenerContainerFactory"
     )
     @Transactional
-    fun execute(userId: UUID) = questionRepository.deleteQuestionByUserId(userId)
+    fun execute(userId: UUID) = questionRepository.deleteAllByUserId(userId)
 }
