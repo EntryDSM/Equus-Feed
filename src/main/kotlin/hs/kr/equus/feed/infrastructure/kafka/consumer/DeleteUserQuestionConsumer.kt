@@ -13,7 +13,7 @@ class DeleteUserQuestionConsumer(
 ) {
     @KafkaListener(
         topics = [KafkaTopics.DELETE_USER],
-        groupId = "delete-question",
+        groupId = "delete-user-question",
         containerFactory = "kafkaListenerContainerFactory"
     )
     @Transactional
