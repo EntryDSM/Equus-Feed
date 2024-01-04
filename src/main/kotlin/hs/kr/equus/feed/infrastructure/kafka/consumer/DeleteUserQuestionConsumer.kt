@@ -9,7 +9,7 @@ import java.util.UUID
 
 @Service
 class DeleteUserQuestionConsumer(
-    private val questionRepository: QuestionRepository
+    private val questionRepository: QuestionRepository,
 ) {
     @KafkaListener(
         topics = [KafkaTopics.DELETE_USER],
@@ -17,5 +17,7 @@ class DeleteUserQuestionConsumer(
         containerFactory = "kafkaListenerContainerFactory"
     )
     @Transactional
-    fun execute(userId: UUID) = questionRepository.deleteAllByUserId(userId)
+    fun execute(userId: UUID) {
+        questionRepository.deleteAllByUserId(userId)
+    }
 }
