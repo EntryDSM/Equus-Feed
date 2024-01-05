@@ -1,4 +1,4 @@
-package hs.kr.equus.feed.infrastructure.kafka.dto.resposne
+package hs.kr.equus.feed.infrastructure.kafka.dto.response
 
 import java.util.UUID
 
