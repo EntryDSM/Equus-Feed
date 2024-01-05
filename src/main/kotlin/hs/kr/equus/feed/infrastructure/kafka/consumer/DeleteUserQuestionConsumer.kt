@@ -3,11 +3,10 @@ package hs.kr.equus.feed.infrastructure.kafka.consumer
 import com.fasterxml.jackson.databind.ObjectMapper
 import hs.kr.equus.feed.domain.question.domain.repository.QuestionRepository
 import hs.kr.equus.feed.infrastructure.kafka.configuration.KafkaTopics
-import hs.kr.equus.feed.infrastructure.kafka.dto.DeletedUserInfo
+import hs.kr.equus.feed.infrastructure.kafka.dto.resposne.DeletedUserInfoResponse
 import org.springframework.kafka.annotation.KafkaListener
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
-import java.util.UUID
 
 @Service
 class DeleteUserQuestionConsumer(
@@ -21,8 +20,7 @@ class DeleteUserQuestionConsumer(
     )
     @Transactional
     fun execute(deletedUserInfo: String) {
-        println(deletedUserInfo)
-        val deleteUserInfo = objectMapper.readValue(deletedUserInfo, DeletedUserInfo::class.java)
+        val deleteUserInfo = objectMapper.readValue(deletedUserInfo, DeletedUserInfoResponse::class.java)
         questionRepository.deleteAllByUserId(deleteUserInfo.userId)
     }
 }
