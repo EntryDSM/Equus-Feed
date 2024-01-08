@@ -1,5 +1,6 @@
 package hs.kr.equus.feed.domain.question.presentation
 
+import hs.kr.equus.feed.domain.question.domain.repository.QuestionRepository
 import hs.kr.equus.feed.domain.question.presentation.dto.request.CreateQuestionRequest
 import hs.kr.equus.feed.domain.question.presentation.dto.request.UpdateQuestionRequest
 import hs.kr.equus.feed.domain.question.presentation.dto.response.QuestionDetailsResponse
@@ -26,7 +27,8 @@ class QuestionController(
     private val queryQuestionDetailsService: QueryQuestionDetailsService,
     private val updateQuestionService: UpdateQuestionService,
     private val queryMyQuestionService: QueryMyQuestionService,
-    private val deleteQuestionService: DeleteQuestionService
+    private val deleteQuestionService: DeleteQuestionService,
+    private val questionRepository: QuestionRepository
 ) {
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
