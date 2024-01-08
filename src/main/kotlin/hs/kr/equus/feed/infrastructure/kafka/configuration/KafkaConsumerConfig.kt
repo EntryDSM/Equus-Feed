@@ -5,19 +5,15 @@ import org.apache.kafka.common.serialization.StringDeserializer
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.kafka.annotation.EnableKafka
-import org.springframework.kafka.annotation.KafkaListenerConfigurer
 import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory
-import org.springframework.kafka.config.KafkaListenerEndpointRegistrar
 import org.springframework.kafka.core.DefaultKafkaConsumerFactory
 import org.springframework.kafka.support.converter.StringJsonMessageConverter
 import org.springframework.kafka.support.serializer.JsonDeserializer
-import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean
-import java.util.UUID
 
 @EnableKafka
 @Configuration
 class KafkaConsumerConfig(
-    private val kafkaProperty: KafkaProperty,
+    private val kafkaProperty: KafkaProperty
 ) {
 
     @Bean
