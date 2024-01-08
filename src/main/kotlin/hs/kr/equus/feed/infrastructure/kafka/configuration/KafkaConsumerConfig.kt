@@ -5,20 +5,27 @@ import org.apache.kafka.common.serialization.StringDeserializer
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.kafka.annotation.EnableKafka
+import org.springframework.kafka.annotation.KafkaListenerConfigurer
 import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory
+import org.springframework.kafka.config.KafkaListenerEndpointRegistrar
 import org.springframework.kafka.core.DefaultKafkaConsumerFactory
+import org.springframework.kafka.support.converter.StringJsonMessageConverter
 import org.springframework.kafka.support.serializer.JsonDeserializer
+import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean
+import java.util.UUID
 
 @EnableKafka
 @Configuration
 class KafkaConsumerConfig(
-    private val kafkaProperty: KafkaProperty
+    private val kafkaProperty: KafkaProperty,
 ) {
+
     @Bean
-    fun kafkaListenerContainerFactory(): ConcurrentKafkaListenerContainerFactory<String, String> {
-        return ConcurrentKafkaListenerContainerFactory<String, String>().apply {
+    fun kafkaListenerContainerFactory(): ConcurrentKafkaListenerContainerFactory<String, Any> {
+        return ConcurrentKafkaListenerContainerFactory<String, Any>().apply {
             setConcurrency(2)
             consumerFactory = DefaultKafkaConsumerFactory(consumerFactoryConfig())
+            setMessageConverter(StringJsonMessageConverter())
             containerProperties.pollTimeout = 500
         }
     }
@@ -28,7 +35,7 @@ class KafkaConsumerConfig(
             ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG to kafkaProperty.serverAddress,
             ConsumerConfig.ISOLATION_LEVEL_CONFIG to "read_committed",
             ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG to StringDeserializer::class.java,
-            ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG to JsonDeserializer::class.java,
+            ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG to StringDeserializer::class.java,
             ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG to "false",
             ConsumerConfig.AUTO_OFFSET_RESET_CONFIG to "latest",
             ConsumerConfig.MAX_POLL_INTERVAL_MS_CONFIG to 5000,
