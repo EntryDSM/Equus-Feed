@@ -27,8 +27,9 @@ class FaqController(
     private val queryFaqDetailsService: QueryFaqDetailsService,
     private val queryFaqListByTypeService: QueryFaqListByTypeService,
     private val queryFaqListService: QueryFaqListService,
+    private val queryFaqTitleService: QueryFaqTitleService,
     private val updateFaqService: UpdateFaqService,
-    private val deleteFaqService: DeleteFaqService
+    private val deleteFaqService: DeleteFaqService,
 ) {
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
@@ -47,6 +48,9 @@ class FaqController(
 
     @GetMapping("/all")
     fun queryFaqList(): FaqListResponse = queryFaqListService.execute()
+
+    @GetMapping("/title")
+    fun queryFaqTitle() = queryFaqTitleService.execute()
 
     @PatchMapping("/{faq-id}")
     fun updateFaq(
