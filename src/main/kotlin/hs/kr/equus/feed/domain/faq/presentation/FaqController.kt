@@ -29,7 +29,7 @@ class FaqController(
     private val queryFaqListService: QueryFaqListService,
     private val queryFaqTitleService: QueryFaqTitleService,
     private val updateFaqService: UpdateFaqService,
-    private val deleteFaqService: DeleteFaqService,
+    private val deleteFaqService: DeleteFaqService
 ) {
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
