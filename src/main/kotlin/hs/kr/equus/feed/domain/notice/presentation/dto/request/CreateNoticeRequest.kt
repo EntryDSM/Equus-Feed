@@ -1,10 +1,23 @@
 package hs.kr.equus.feed.domain.notice.presentation.dto.request
 
 import hs.kr.equus.feed.domain.notice.domain.type.NoticeType
+import javax.validation.constraints.NotBlank
+import javax.validation.constraints.NotNull
+import javax.validation.constraints.Size
 
 data class CreateNoticeRequest(
-    val title: String?,
-    val content: String?,
-    val pick: Boolean?,
-    val type: NoticeType?
+
+    @NotBlank(message = "title은 null, 공백, 띄어쓰기를 허용하지 않습니다.")
+    @Size(max = 100, message = "title은 최대 100자까지 가능합니다.")
+    val title: String,
+
+    @NotBlank(message = "content은 null, 공백, 띄어쓰기를 허용하지 않습니다.")
+    @Size(max = 5000, message = "content은 최대 5000자까지 가능합니다.")
+    val content: String,
+
+    @NotNull
+    val isPinned: Boolean,
+
+    @NotNull
+    val type: NoticeType
 )

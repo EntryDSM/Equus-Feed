@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestPart
 import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestController
 import org.springframework.web.multipart.MultipartFile
+import javax.validation.Valid
 
 @RestController
 @RequestMapping("/notice")
@@ -19,7 +20,7 @@ class NoticeController(
     @ResponseStatus(value = HttpStatus.CREATED)
     @PostMapping("/create")
     fun createNotice(
-        @RequestPart(name = "request")
+        @RequestPart(name = "request") @Valid
         createNoticeRequest: CreateNoticeRequest,
         @RequestPart(name = "images", required = false)
         images: List<MultipartFile>?,

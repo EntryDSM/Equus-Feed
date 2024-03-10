@@ -30,10 +30,10 @@ class CreateNoticeService(
 
         val notice = Notice(
             adminId = user,
-            title = request.title!!,
-            content = request.content!!,
-            type = request.type!!,
-            pick = request.pick!!,
+            title = request.title,
+            content = request.content,
+            type = request.type,
+            isPinned = request.isPinned,
             imageName = images.toString(),
             fileName = files.toString()
 
