@@ -18,17 +18,17 @@ class Notice(
     @Column(name = "content", length = 5000, nullable = false)
     val content: String,
 
-    @Column(name = "image_url", nullable = false)
-    val imageUrl: String,
+    @Column(name = "image_name")
+    val imageName: String,
 
-    @Column(name = "file_url", nullable = false)
-    val fileUrl: String,
+    @Column(name = "file_name")
+    val fileName: String,
 
     @Column(name = "admin_name", nullable = false)
-    val adminName: String,
+    val adminId: UUID,
 
     @Column(nullable = false)
-    val pick: Boolean,
+    val isPinned: Boolean,
 
     @Column(nullable = false)
     @Enumerated(value = EnumType.STRING)

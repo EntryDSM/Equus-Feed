@@ -45,4 +45,6 @@ object Dependencies {
 
     // Actuator
     const val ACTUATOR = "org.springframework.boot:spring-boot-starter-actuator"
+
+    const val AWS = "com.amazonaws:aws-java-sdk-s3:${DependencyVersions.AWS}"
 }
