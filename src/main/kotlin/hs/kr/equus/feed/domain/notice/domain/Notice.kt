@@ -9,7 +9,7 @@ import javax.persistence.EnumType
 import javax.persistence.Enumerated
 
 @Entity(name = "tbl_notice")
-class Notice (
+class Notice(
     id: UUID? = null,
 
     @Column(name = "title", length = 100, nullable = false)
@@ -21,9 +21,8 @@ class Notice (
     @Column(name = "image_url", nullable = false)
     val imageUrl: String,
 
-    @Column(name = "file_url",nullable = false)
+    @Column(name = "file_url", nullable = false)
     val fileUrl: String,
-
 
     @Column(name = "admin_name", nullable = false)
     val adminName: String,
@@ -35,4 +34,4 @@ class Notice (
     @Enumerated(value = EnumType.STRING)
     val type: NoticeType
 
-): BaseEntity(id)
+) : BaseEntity(id)
