@@ -15,6 +15,7 @@ class QueryFaqTitleService(
         faqRepository.findAll()
             .map {
                 FaqTitleResponse(
+                    it.id!!,
                     it.title
                 )
             }
