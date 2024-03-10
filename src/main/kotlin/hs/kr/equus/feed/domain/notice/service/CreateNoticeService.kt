@@ -13,8 +13,11 @@ import org.springframework.web.multipart.MultipartFile
 class CreateNoticeService(
     private val s3Service: S3Service,
     private val noticeRepository: NoticeRepository,
-    private val userUtils: UserUtils
+    private val userUtils: UserUtils,
 ) {
+    companion object {
+        const val PATH = "notice"
+    }
 
     @Transactional
     fun execute(
@@ -24,8 +27,8 @@ class CreateNoticeService(
     ) {
         val user = userUtils.getCurrentUserId()
 
-        val images = image?.let { s3Service.upload(it, "notice") }
-        val files = file?.let { s3Service.upload(it, "notice") }
+        val images = image?.let { s3Service.upload(it, PATH) }
+        val files = file?.let { s3Service.upload(it, PATH) }
 
         val notice = Notice(
             adminId = user,
