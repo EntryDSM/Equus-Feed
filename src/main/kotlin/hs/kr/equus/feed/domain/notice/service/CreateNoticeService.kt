@@ -18,14 +18,15 @@ class CreateNoticeService(
 
     @Transactional
     fun execute(
-        image: List<MultipartFile>? = null,
-        file: List<MultipartFile>? = null,
+        image: List<MultipartFile>?,
+        file: List<MultipartFile>?,
         request: CreateNoticeRequest
     ) {
         val user = userUtils.getCurrentUserId()
 
-        val images = s3Service.upload(image!!)
-        val files = s3Service.upload(file!!)
+
+        val images = image?.let { s3Service.upload(it) }
+        val files = file?.let { s3Service.upload(it) }
 
         val notice = Notice(
             adminId = user,
