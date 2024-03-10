@@ -28,7 +28,7 @@ class Notice(
     val adminId: UUID,
 
     @Column(nullable = false)
-    val pick: Boolean,
+    val isPinned: Boolean,
 
     @Column(nullable = false)
     @Enumerated(value = EnumType.STRING)
