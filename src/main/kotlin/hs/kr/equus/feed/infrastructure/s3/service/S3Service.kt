@@ -22,7 +22,7 @@ import java.util.UUID
 class S3Service(
     private val amazonS3: AmazonS3
 ) {
-    @Value("\${spring.cloud.aws.s3.bucket}")
+    @Value("\${cloud.aws.s3.bucket}")
     lateinit var bucketName: String
 
     companion object {
@@ -56,13 +56,12 @@ class S3Service(
             uploadedFileNames.add(filename)
         }
 
-        return generateObjectUrl(uploadedFileNames)
+        return uploadedFileNames
     }
-
 
     fun generateObjectUrl(fileNames: List<String>): List<String> {
         val expiration = Date().apply {
-            time += S3Service.EXP_TIME
+            time += EXP_TIME
         }
 
         val url = mutableListOf<String>()
@@ -81,13 +80,15 @@ class S3Service(
         return url
     }
 
-
     private fun verificationFile(file: MultipartFile): String {
         if (file.isEmpty || file.originalFilename == null) throw EmptyFileException
         val originalFilename = file.originalFilename!!
         val ext = originalFilename.substring(originalFilename.lastIndexOf(".") + 1).lowercase(Locale.getDefault())
 
-        if (!(ext == "jpg" || ext == "jpeg" || ext == "png" || ext == "heic")) throw BadFileExtensionException
+        if (!(ext == "jpg" || ext == "jpeg" || ext == "png" || ext == "heic" || ext == "hwp" || ext == "pptx")) {
+            throw BadFileExtensionException
+        }
+
         return ext
     }
 }
