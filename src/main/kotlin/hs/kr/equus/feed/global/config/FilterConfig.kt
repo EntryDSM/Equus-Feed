@@ -1,4 +1,4 @@
-package hs.kr.equus.feed.global.security
+package hs.kr.equus.feed.global.config
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import hs.kr.equus.feed.global.error.GlobalExceptionFilter
