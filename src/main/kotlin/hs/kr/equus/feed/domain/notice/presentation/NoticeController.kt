@@ -21,10 +21,10 @@ class NoticeController(
     fun createNotice(
         @RequestPart(name = "request")
         createNoticeRequest: CreateNoticeRequest,
-        @RequestPart(name = "images")
-        images: List<MultipartFile>? = null,
-        @RequestPart(name = "files")
-        files: List<MultipartFile>? = null
+        @RequestPart(name = "images", required = false)
+        images: List<MultipartFile>?,
+        @RequestPart(name = "files", required = false)
+        files: List<MultipartFile>?
     ) {
         createNoticeService.execute(images, files, createNoticeRequest)
     }
