@@ -13,7 +13,7 @@ import org.springframework.web.multipart.MultipartFile
 class CreateNoticeService(
     private val s3Service: S3Service,
     private val noticeRepository: NoticeRepository,
-    private val userUtils: UserUtils,
+    private val userUtils: UserUtils
 ) {
     companion object {
         const val PATH = "notice"
