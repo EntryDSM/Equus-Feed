@@ -45,6 +45,8 @@ class SecurityConfig(
             .hasRole(ADMIN_ROLE)
             .antMatchers(HttpMethod.GET, "/faq/all-title")
             .permitAll()
+            .antMatchers(HttpMethod.POST, "/notice/**")
+            .hasRole(ADMIN_ROLE)
             .anyRequest()
             .authenticated()
 
