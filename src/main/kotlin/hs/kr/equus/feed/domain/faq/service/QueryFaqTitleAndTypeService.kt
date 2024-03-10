@@ -14,7 +14,7 @@ class QueryFaqTitleAndTypeService(
     fun execute() =
         faqRepository.findAll()
             .map {
-                it ->
+                    it ->
                 FaqTitleAndTypeResponse(
                     it.id!!,
                     it.faqType,
