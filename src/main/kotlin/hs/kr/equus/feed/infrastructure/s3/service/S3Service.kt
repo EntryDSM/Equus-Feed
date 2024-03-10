@@ -27,10 +27,9 @@ class S3Service(
 
     companion object {
         const val EXP_TIME = 1000 * 60 * 2
-        const val PATH: String = "notice/"
     }
 
-    fun upload(files: List<MultipartFile>): List<String> {
+    fun upload(files: List<MultipartFile>, path: String): List<String> {
         val uploadedFileNames = mutableListOf<String>()
 
         files.forEach { file ->
@@ -48,7 +47,7 @@ class S3Service(
 
             inputStream.use {
                 amazonS3.putObject(
-                    PutObjectRequest(bucketName, "${PATH}$filename", it, metadata)
+                    PutObjectRequest(bucketName, "${path}$filename", it, metadata)
                         .withCannedAcl(CannedAccessControlList.AuthenticatedRead)
                 )
             }
@@ -59,7 +58,7 @@ class S3Service(
         return uploadedFileNames
     }
 
-    fun generateObjectUrl(fileNames: List<String>): List<String> {
+    fun generateObjectUrl(fileNames: List<String>, path: String): List<String> {
         val expiration = Date().apply {
             time += EXP_TIME
         }
@@ -70,7 +69,7 @@ class S3Service(
             val urls = amazonS3.generatePresignedUrl(
                 GeneratePresignedUrlRequest(
                     bucketName,
-                    "${PATH}$fileName"
+                    "${path}$fileName"
                 ).withMethod(HttpMethod.GET).withExpiration(expiration)
             ).toString()
 

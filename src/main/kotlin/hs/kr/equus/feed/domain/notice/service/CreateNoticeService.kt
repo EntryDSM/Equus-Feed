@@ -24,9 +24,8 @@ class CreateNoticeService(
     ) {
         val user = userUtils.getCurrentUserId()
 
-
-        val images = image?.let { s3Service.upload(it) }
-        val files = file?.let { s3Service.upload(it) }
+        val images = image?.let { s3Service.upload(it, "notice") }
+        val files = file?.let { s3Service.upload(it, "notice") }
 
         val notice = Notice(
             adminId = user,
