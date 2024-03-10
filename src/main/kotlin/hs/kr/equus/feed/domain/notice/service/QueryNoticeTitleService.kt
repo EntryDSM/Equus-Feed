@@ -14,7 +14,7 @@ class QueryNoticeTitleService(
     fun execute(): List<QueryNoticeTitleResponse> =
         noticeRepository.findAll()
             .map {
-                it ->
+                    it ->
                 QueryNoticeTitleResponse(
                     id = it.id!!,
                     title = it.title
