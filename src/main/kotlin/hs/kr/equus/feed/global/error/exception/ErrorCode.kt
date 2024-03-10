@@ -26,6 +26,11 @@ enum class ErrorCode(
     QUESTION_NOT_FOUND(404, "Question Not Found"),
     REPLY_NOT_FOUND(404, "Reply Not Found"),
     FAQ_NOT_FOUND(404, "Faq Not Found"),
+    IMAGE_NOT_FOUND(404, "Image Not Found"),
+
+    // Bad Request
+    FILE_IS_EMPTY(400, "File does not exist"),
+    BAD_FILE_EXTENSION(400, "File Extension is invalid"),
 
     // Conflict
     REPLY_EXISTS(409, "Reply Already Exists")
