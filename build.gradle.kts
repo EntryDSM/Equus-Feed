@@ -66,6 +66,8 @@ dependencies {
 
     // Actuator
     implementation(Dependencies.ACTUATOR)
+
+    implementation(Dependencies.AWS)
 }
 
 tasks.withType<KotlinCompile> {
