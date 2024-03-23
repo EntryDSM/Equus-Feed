@@ -9,5 +9,4 @@ class EquusFeedApplicationTests {
     @Test
     fun contextLoads() {
     }
-
 }
