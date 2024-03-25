@@ -13,10 +13,12 @@ class QueryFaqTitleService(
     @Transactional(readOnly = true)
     fun execute(): List<FaqTitleResponse> =
         faqRepository.findAll()
+            .sortedByDescending { it.createdAt }
             .map {
                 FaqTitleResponse(
                     it.id!!,
-                    it.title
+                    it.title,
+                    it.content
                 )
             }
 }
