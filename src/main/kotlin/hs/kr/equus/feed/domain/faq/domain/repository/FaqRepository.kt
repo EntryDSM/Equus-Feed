@@ -7,4 +7,6 @@ import java.util.UUID
 
 interface FaqRepository : JpaRepository<Faq, UUID> {
     fun findAllByFaqType(faqType: FaqType): List<Faq>
+
+    fun findTop5ByOrderByCreatedAtDesc(): List<Faq>
 }
