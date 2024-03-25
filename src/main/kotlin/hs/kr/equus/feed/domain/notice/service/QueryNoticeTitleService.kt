@@ -17,7 +17,8 @@ class QueryNoticeTitleService(
                     it ->
                 QueryNoticeTitleResponse(
                     id = it.id!!,
-                    title = it.title
+                    title = it.title,
+                    it.createdAt
                 )
             }
 }
