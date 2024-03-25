@@ -17,7 +17,7 @@ class QueryTopFaqService(
                 FaqTitleResponse(
                     it.id!!,
                     it.title,
-                    it.content,
+                    it.content
                 )
             }
 }
