@@ -50,7 +50,7 @@ class FaqController(
     @GetMapping("/all")
     fun queryFaqList(): FaqListResponse = queryFaqListService.execute()
 
-    @GetMapping("/top")
+    @GetMapping("/recently")
     fun queryTopFaq() = queryTopFaqService.execute()
 
     @GetMapping("all/title-type")
