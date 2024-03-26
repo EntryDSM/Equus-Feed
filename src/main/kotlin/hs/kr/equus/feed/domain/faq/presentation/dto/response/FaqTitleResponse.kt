@@ -4,5 +4,6 @@ import java.util.UUID
 
 data class FaqTitleResponse(
     val id: UUID,
-    val title: String
+    val title: String,
+    val content: String
 )

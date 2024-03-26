@@ -6,17 +6,18 @@ import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
 @Service
-class QueryFaqTitleService(
+class QueryTopFaqService(
     private val faqRepository: FaqRepository
 ) {
 
     @Transactional(readOnly = true)
     fun execute(): List<FaqTitleResponse> =
-        faqRepository.findAll()
+        faqRepository.findTop5ByOrderByCreatedAtDesc()
             .map {
                 FaqTitleResponse(
                     it.id!!,
-                    it.title
+                    it.title,
+                    it.content
                 )
             }
 }
