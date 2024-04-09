@@ -21,16 +21,14 @@ class NoticeController(
 ) {
 
     @ResponseStatus(value = HttpStatus.CREATED)
-    @PostMapping("/create")
+    @PostMapping
     fun createNotice(
         @RequestPart(name = "request") @Valid
         createNoticeRequest: CreateNoticeRequest,
-        @RequestPart(name = "images", required = false)
-        images: List<MultipartFile>?,
-        @RequestPart(name = "files", required = false)
+        @RequestPart(name = "file", required = false)
         files: List<MultipartFile>?
     ) {
-        createNoticeService.execute(images, files, createNoticeRequest)
+        createNoticeService.execute(files, createNoticeRequest)
     }
 
     @GetMapping("/title-all")

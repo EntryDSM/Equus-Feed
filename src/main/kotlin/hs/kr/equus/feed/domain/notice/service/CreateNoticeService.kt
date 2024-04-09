@@ -21,13 +21,11 @@ class CreateNoticeService(
 
     @Transactional
     fun execute(
-        image: List<MultipartFile>?,
         file: List<MultipartFile>?,
         request: CreateNoticeRequest
-    ) {
+    ): String {
         val user = userUtils.getCurrentUserId()
 
-        val images = image?.let { s3Service.upload(it, PATH) }
         val files = file?.let { s3Service.upload(it, PATH) }
 
         val notice = Notice(
@@ -36,11 +34,10 @@ class CreateNoticeService(
             content = request.content,
             type = request.type,
             isPinned = request.isPinned,
-            imageName = images.toString(),
             fileName = files.toString()
-
         )
 
         noticeRepository.save(notice)
+        return files.toString()
     }
 }

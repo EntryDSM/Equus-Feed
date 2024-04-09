@@ -18,9 +18,6 @@ class Notice(
     @Column(name = "content", length = 5000, nullable = false)
     val content: String,
 
-    @Column(name = "image_name")
-    val imageName: String,
-
     @Column(name = "file_name")
     val fileName: String,
 
