@@ -19,5 +19,7 @@ data class CreateNoticeRequest(
     val isPinned: Boolean,
 
     @field:NotNull
-    val type: NoticeType
+    val type: NoticeType,
+
+    val fileName: String
 )

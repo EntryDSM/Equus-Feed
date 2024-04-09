@@ -21,7 +21,7 @@ class Notice(
     @Column(name = "file_name")
     val fileName: String,
 
-    @Column(name = "admin_name", nullable = false)
+    @Column(name = "admin_name", nullable = false, columnDefinition = "BINARY(16)")
     val adminId: UUID,
 
     @Column(nullable = false)
