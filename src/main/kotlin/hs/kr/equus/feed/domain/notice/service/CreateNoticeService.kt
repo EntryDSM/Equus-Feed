@@ -3,6 +3,7 @@ package hs.kr.equus.feed.domain.notice.service
 import hs.kr.equus.feed.domain.notice.domain.Notice
 import hs.kr.equus.feed.domain.notice.domain.repository.NoticeRepository
 import hs.kr.equus.feed.domain.notice.presentation.dto.request.CreateNoticeRequest
+import hs.kr.equus.feed.domain.notice.presentation.dto.response.QueryImageUrlResponse
 import hs.kr.equus.feed.global.utils.user.UserUtils
 import hs.kr.equus.feed.infrastructure.s3.service.S3Service
 import org.springframework.stereotype.Service
@@ -23,7 +24,7 @@ class CreateNoticeService(
     fun execute(
         file: List<MultipartFile>?,
         request: CreateNoticeRequest
-    ): String {
+    ): QueryImageUrlResponse {
         val user = userUtils.getCurrentUserId()
 
         val files = file?.let { s3Service.upload(it, PATH) }
@@ -38,6 +39,8 @@ class CreateNoticeService(
         )
 
         noticeRepository.save(notice)
-        return files.toString()
+        return QueryImageUrlResponse(
+            image = files!!
+        )
     }
 }
