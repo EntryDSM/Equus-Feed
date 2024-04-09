@@ -31,7 +31,7 @@ class NoticeController(
         createNoticeService.execute(files, createNoticeRequest)
     }
 
-    @GetMapping("/title-all")
+    @GetMapping("/title")
     fun queryTitle() =
         queryNoticeTitleService.execute()
 }
