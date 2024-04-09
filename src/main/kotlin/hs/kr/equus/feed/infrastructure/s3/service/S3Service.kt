@@ -52,19 +52,17 @@ class S3Service(
         return filename
     }
 
-    fun generateObjectUrl(fileName: String): String {
+    fun generateObjectUrl(fileName: String, path: String): String {
         val expiration = Date().apply {
             time += EXP_TIME
         }
 
-        val url = amazonS3.generatePresignedUrl(
+        return amazonS3.generatePresignedUrl(
             GeneratePresignedUrlRequest(
                 bucketName,
-                fileName
+                "${path}$fileName"
             ).withMethod(HttpMethod.GET).withExpiration(expiration)
         ).toString()
-
-        return url
     }
 
 
