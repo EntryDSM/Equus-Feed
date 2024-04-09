@@ -65,7 +65,6 @@ class S3Service(
         ).toString()
     }
 
-
     private fun verificationFile(file: MultipartFile): String {
         if (file.isEmpty || file.originalFilename == null) throw EmptyFileException
         val originalFilename = file.originalFilename!!

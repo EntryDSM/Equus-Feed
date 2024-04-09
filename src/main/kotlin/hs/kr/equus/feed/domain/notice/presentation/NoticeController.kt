@@ -26,7 +26,8 @@ class NoticeController(
     @ResponseStatus(value = HttpStatus.CREATED)
     @PostMapping
     fun createNotice(
-      @RequestBody @Valid createNoticeRequest: CreateNoticeRequest
+        @RequestBody @Valid
+        createNoticeRequest: CreateNoticeRequest
     ) {
         createNoticeService.execute(createNoticeRequest)
     }
