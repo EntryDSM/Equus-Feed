@@ -15,10 +15,10 @@ data class CreateNoticeRequest(
     @Size(max = 5000, message = "content은 최대 5000자까지 가능합니다.")
     val content: String,
 
-    @field:NotNull
+    @field:NotNull(message = "Pinned은 null일수가 없습니다")
     val isPinned: Boolean,
 
-    @field:NotNull
+    @field:NotNull(message = "type은 null일수가 없습니다")
     val type: NoticeType,
 
     val fileName: String
