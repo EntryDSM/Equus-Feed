@@ -21,7 +21,7 @@ class Notice(
     @Column(name = "file_name", nullable = true)
     var fileName: String? = null,
 
-    @Column(name = "admin_name", nullable = false, columnDefinition = "BINARY(16)")
+    @Column(name = "admin_id", nullable = false, columnDefinition = "BINARY(16)")
     var adminId: UUID,
 
     @Column(nullable = false)
