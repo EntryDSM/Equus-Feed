@@ -27,7 +27,6 @@ class CreateNoticeService(
                 isPinned = request.isPinned,
                 adminId = admin,
                 fileName = request.fileName
-
             )
         )
     }

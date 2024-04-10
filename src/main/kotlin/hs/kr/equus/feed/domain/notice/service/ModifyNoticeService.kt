@@ -16,15 +16,14 @@ class ModifyNoticeService(
     private val userUtils: UserUtils,
     private val s3Service: S3Service
 ) {
-  companion object{
-      const val PATH = "notice/"
-  }
+    companion object {
+        const val PATH = "notice/"
+    }
 
     @Transactional
     fun execute(id: UUID, request: ModifyNoticeRequest): String {
         val adminId = userUtils.getCurrentUser().id
         val notice = noticeRepository.findByIdOrNull(id) ?: throw NoticeNotFoundException
-
 
         request.run {
             notice.modifyNotice(

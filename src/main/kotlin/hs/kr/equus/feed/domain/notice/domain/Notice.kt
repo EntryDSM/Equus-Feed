@@ -40,11 +40,11 @@ class Notice(
         fileName: String,
         type: NoticeType
     ) {
-        this.title = title;
-        this.content = content;
-        this.type = type;
-        this.isPinned = isPinned;
-        this.adminId = adminId;
-        this.fileName = fileName;
+        this.title = title
+        this.content = content
+        this.type = type
+        this.isPinned = isPinned
+        this.adminId = adminId
+        this.fileName = fileName
     }
 }
