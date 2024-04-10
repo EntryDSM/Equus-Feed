@@ -13,22 +13,38 @@ class Notice(
     id: UUID? = null,
 
     @Column(name = "title", length = 100, nullable = false)
-    val title: String,
+    var title: String,
 
     @Column(name = "content", length = 5000, nullable = false)
-    val content: String,
+    var content: String,
 
     @Column(name = "file_name")
-    val fileName: String,
+    var fileName: String? = null,
 
     @Column(name = "admin_name", nullable = false, columnDefinition = "BINARY(16)")
-    val adminId: UUID,
+    var adminId: UUID,
 
     @Column(nullable = false)
-    val isPinned: Boolean,
+    var isPinned: Boolean,
 
     @Column(nullable = false)
     @Enumerated(value = EnumType.STRING)
-    val type: NoticeType
+    var type: NoticeType
 
-) : BaseEntity(id)
+) : BaseEntity(id) {
+    fun modifyNotice(
+        title: String,
+        content: String,
+        isPinned: Boolean,
+        adminId: UUID,
+        fileName: String,
+        type: NoticeType
+    ) {
+        this.title = title;
+        this.content = content;
+        this.type = type;
+        this.isPinned = isPinned;
+        this.adminId = adminId;
+        this.fileName = fileName;
+    }
+}
