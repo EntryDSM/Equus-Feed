@@ -18,7 +18,7 @@ class Notice(
     @Column(name = "content", length = 5000, nullable = false)
     var content: String,
 
-    @Column(name = "file_name")
+    @Column(name = "file_name", nullable = true)
     var fileName: String? = null,
 
     @Column(name = "admin_name", nullable = false, columnDefinition = "BINARY(16)")

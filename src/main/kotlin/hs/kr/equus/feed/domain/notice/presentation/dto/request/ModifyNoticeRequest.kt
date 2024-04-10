@@ -20,5 +20,5 @@ data class ModifyNoticeRequest(
     @field:NotNull(message = "type은 null일수가 없습니다")
     val type: NoticeType,
 
-    val fileName: String
+    val fileName: String? = null
 )
