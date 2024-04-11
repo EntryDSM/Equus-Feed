@@ -31,10 +31,10 @@ class ModifyNoticeService(
                 content = content,
                 isPinned = isPinned,
                 type = type,
-                fileName = request.fileName,
+                fileName = request.fileName!!,
                 adminId = adminId
             )
         }
-        return s3Service.generateObjectUrl(request.fileName, PATH)
+        return s3Service.generateObjectUrl(request.fileName!!, PATH)
     }
 }
