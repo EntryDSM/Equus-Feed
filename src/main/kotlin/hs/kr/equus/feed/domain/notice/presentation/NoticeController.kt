@@ -54,6 +54,7 @@ class NoticeController(
     fun queryTitle() =
         queryNoticeTitleService.execute()
 
+    @ResponseStatus(value = HttpStatus.NO_CONTENT)
     @DeleteMapping("/{notice-id}")
     fun deleteNotice(
         @PathVariable(name = "notice-id")id: UUID
