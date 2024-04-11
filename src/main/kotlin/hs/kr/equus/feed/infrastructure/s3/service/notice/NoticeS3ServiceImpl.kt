@@ -7,7 +7,7 @@ import org.springframework.web.multipart.MultipartFile
 @Component
 class NoticeS3ServiceImpl(
     private val s3Service: S3Service
-): NoticeS3Service {
+) : NoticeS3Service {
     companion object {
         const val PATH = "notice/"
     }

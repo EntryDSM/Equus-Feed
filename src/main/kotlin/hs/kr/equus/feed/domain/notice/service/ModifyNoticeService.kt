@@ -4,7 +4,6 @@ import hs.kr.equus.feed.domain.notice.domain.repository.NoticeRepository
 import hs.kr.equus.feed.domain.notice.exception.NoticeNotFoundException
 import hs.kr.equus.feed.domain.notice.presentation.dto.request.ModifyNoticeRequest
 import hs.kr.equus.feed.global.utils.user.UserUtils
-import hs.kr.equus.feed.infrastructure.s3.service.S3ServiceImpl
 import hs.kr.equus.feed.infrastructure.s3.service.notice.NoticeS3Service
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.http.HttpStatus

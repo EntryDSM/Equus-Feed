@@ -21,7 +21,7 @@ import java.util.UUID
 @Service
 class S3ServiceImpl(
     private val amazonS3: AmazonS3
-): S3Service {
+) : S3Service {
     @Value("\${cloud.aws.s3.bucket}")
     lateinit var bucketName: String
 

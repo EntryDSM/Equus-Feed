@@ -15,7 +15,7 @@ class GetNoticeService(
     private val noticeRepository: NoticeRepository,
     private val noticeS3Service: NoticeS3Service
 ) {
-    fun execute(noticeId: UUID): GetNoticeResponse{
+    fun execute(noticeId: UUID): GetNoticeResponse {
         val notice = noticeRepository.findByIdOrNull(noticeId) ?: throw NoticeNotFoundException
         val imageURL = notice.fileName?.let { noticeS3Service.generateObjectUrl(it) }
 
