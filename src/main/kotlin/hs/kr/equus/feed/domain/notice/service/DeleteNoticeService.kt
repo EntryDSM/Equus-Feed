@@ -9,7 +9,7 @@ import java.util.UUID
 
 @Service
 class DeleteNoticeService(
-    private val noticeRepository: NoticeRepository,
+    private val noticeRepository: NoticeRepository
 ) {
     @Transactional
     fun execute(noticeId: UUID) {
