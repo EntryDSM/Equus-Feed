@@ -2,11 +2,9 @@ package hs.kr.equus.feed.domain.notice.presentation
 
 import hs.kr.equus.feed.domain.notice.presentation.dto.request.CreateNoticeRequest
 import hs.kr.equus.feed.domain.notice.presentation.dto.request.ModifyNoticeRequest
-import hs.kr.equus.feed.domain.notice.service.CreateNoticeService
-import hs.kr.equus.feed.domain.notice.service.ModifyNoticeService
-import hs.kr.equus.feed.domain.notice.service.QueryNoticeTitleService
-import hs.kr.equus.feed.domain.notice.service.UploadNoticeImageService
+import hs.kr.equus.feed.domain.notice.service.*
 import org.springframework.http.HttpStatus
+import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PatchMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -26,7 +24,8 @@ class NoticeController(
     private val createNoticeService: CreateNoticeService,
     private val uploadNoticeImageService: UploadNoticeImageService,
     private val modifyNoticeService: ModifyNoticeService,
-    private val queryNoticeTitleService: QueryNoticeTitleService
+    private val queryNoticeTitleService: QueryNoticeTitleService,
+    private val deleteNoticeService: DeleteNoticeService
 ) {
 
     @ResponseStatus(value = HttpStatus.CREATED)
@@ -54,4 +53,11 @@ class NoticeController(
     @GetMapping("/title")
     fun queryTitle() =
         queryNoticeTitleService.execute()
+
+    @ResponseStatus(value = HttpStatus.NO_CONTENT)
+    @DeleteMapping("/{notice-id}")
+    fun deleteNotice(
+        @PathVariable(name = "notice-id")id: UUID
+    ) =
+        deleteNoticeService.execute(id)
 }
