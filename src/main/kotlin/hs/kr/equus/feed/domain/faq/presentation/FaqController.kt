@@ -28,7 +28,6 @@ class FaqController(
     private val queryFaqListByTypeService: QueryFaqListByTypeService,
     private val queryFaqListService: QueryFaqListService,
     private val queryTopFaqService: QueryTopFaqService,
-    private val queryFaqTitleAndTypeService: QueryFaqTitleAndTypeService,
     private val updateFaqService: UpdateFaqService,
     private val deleteFaqService: DeleteFaqService
 ) {
@@ -52,9 +51,6 @@ class FaqController(
 
     @GetMapping("/recently")
     fun queryTopFaq() = queryTopFaqService.execute()
-
-    @GetMapping("all/title-type")
-    fun queryFaqTitleAndType() = queryFaqTitleAndTypeService.execute()
 
     @PatchMapping("/{faq-id}")
     fun updateFaq(

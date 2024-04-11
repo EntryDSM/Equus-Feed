@@ -29,54 +29,40 @@ class S3Service(
         const val EXP_TIME = 1000 * 60 * 2
     }
 
-    fun upload(files: List<MultipartFile>, path: String): List<String> {
-        val uploadedFileNames = mutableListOf<String>()
+    fun upload(file: MultipartFile, path: String): String {
+        val ext = verificationFile(file)
 
-        files.forEach { file ->
-            val ext = verificationFile(file)
+        val randomName = UUID.randomUUID().toString()
+        val filename = "$randomName.$ext"
+        val inputStream: InputStream = ByteArrayInputStream(file.bytes)
 
-            val randomName = UUID.randomUUID().toString()
-            val filename = "$randomName.$ext"
-            val inputStream: InputStream = ByteArrayInputStream(file.bytes)
-
-            val metadata = ObjectMetadata().apply {
-                contentType = MediaType.IMAGE_PNG_VALUE
-                contentLength = file.size
-                contentDisposition = "inline"
-            }
-
-            inputStream.use {
-                amazonS3.putObject(
-                    PutObjectRequest(bucketName, "${path}$filename", it, metadata)
-                        .withCannedAcl(CannedAccessControlList.AuthenticatedRead)
-                )
-            }
-
-            uploadedFileNames.add(filename)
+        val metadata = ObjectMetadata().apply {
+            contentType = MediaType.IMAGE_PNG_VALUE
+            contentLength = file.size
+            contentDisposition = "inline"
         }
 
-        return uploadedFileNames
+        inputStream.use {
+            amazonS3.putObject(
+                PutObjectRequest(bucketName, "${path}$filename", it, metadata)
+                    .withCannedAcl(CannedAccessControlList.AuthenticatedRead)
+            )
+        }
+
+        return filename
     }
 
-    fun generateObjectUrl(fileNames: List<String>, path: String): List<String> {
+    fun generateObjectUrl(fileName: String, path: String): String {
         val expiration = Date().apply {
             time += EXP_TIME
         }
 
-        val url = mutableListOf<String>()
-
-        fileNames.forEach { fileName ->
-            val urls = amazonS3.generatePresignedUrl(
-                GeneratePresignedUrlRequest(
-                    bucketName,
-                    "${path}$fileName"
-                ).withMethod(HttpMethod.GET).withExpiration(expiration)
-            ).toString()
-
-            url.add(urls)
-        }
-
-        return url
+        return amazonS3.generatePresignedUrl(
+            GeneratePresignedUrlRequest(
+                bucketName,
+                "${path}$fileName"
+            ).withMethod(HttpMethod.GET).withExpiration(expiration)
+        ).toString()
     }
 
     private fun verificationFile(file: MultipartFile): String {
