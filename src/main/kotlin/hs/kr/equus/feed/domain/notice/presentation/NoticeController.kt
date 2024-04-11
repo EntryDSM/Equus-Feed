@@ -2,11 +2,12 @@ package hs.kr.equus.feed.domain.notice.presentation
 
 import hs.kr.equus.feed.domain.notice.presentation.dto.request.CreateNoticeRequest
 import hs.kr.equus.feed.domain.notice.presentation.dto.request.ModifyNoticeRequest
-import hs.kr.equus.feed.domain.notice.service.CreateNoticeService
-import hs.kr.equus.feed.domain.notice.service.ModifyNoticeService
-import hs.kr.equus.feed.domain.notice.service.QueryNoticeTitleService
-import hs.kr.equus.feed.domain.notice.service.UploadNoticeImageService
+import hs.kr.equus.feed.domain.notice.presentation.dto.response.GetNoticeResponse
+import hs.kr.equus.feed.domain.notice.presentation.dto.response.QueryNoticeTitleResponse
+import hs.kr.equus.feed.domain.notice.presentation.dto.response.UploadNoticeImageResponse
+import hs.kr.equus.feed.domain.notice.service.*
 import org.springframework.http.HttpStatus
+import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PatchMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -26,7 +27,8 @@ class NoticeController(
     private val createNoticeService: CreateNoticeService,
     private val uploadNoticeImageService: UploadNoticeImageService,
     private val modifyNoticeService: ModifyNoticeService,
-    private val queryNoticeTitleService: QueryNoticeTitleService
+    private val queryNoticeTitleService: QueryNoticeTitleService,
+    private val getNoticeService: GetNoticeService
 ) {
 
     @ResponseStatus(value = HttpStatus.CREATED)
@@ -42,16 +44,21 @@ class NoticeController(
     fun modifyNotice(
         @PathVariable(name = "notice-id") id: UUID,
         @RequestBody modifyNoticeRequest: ModifyNoticeRequest
-    ) =
+    ): ResponseEntity<String> =
         modifyNoticeService.execute(id, modifyNoticeRequest)
 
     @PostMapping("/image")
     fun uploadImage(
         @RequestPart(name = "photo") image: MultipartFile
-    ) =
+    ): UploadNoticeImageResponse =
         uploadNoticeImageService.execute(image)
 
     @GetMapping("/title")
-    fun queryTitle() =
-        queryNoticeTitleService.execute()
+    fun queryTitle(): List<QueryNoticeTitleResponse> = queryNoticeTitleService.execute()
+
+    @GetMapping("/{notice-id}")
+    fun getNotice(
+        @PathVariable(name = "notice-id", required = true)
+        noticeId: UUID
+    ): GetNoticeResponse = getNoticeService.execute(noticeId)
 }

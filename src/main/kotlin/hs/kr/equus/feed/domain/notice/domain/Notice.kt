@@ -37,7 +37,7 @@ class Notice(
         content: String,
         isPinned: Boolean,
         adminId: UUID,
-        fileName: String,
+        fileName: String?,
         type: NoticeType
     ) {
         this.title = title
