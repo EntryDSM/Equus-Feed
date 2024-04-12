@@ -1,7 +1,9 @@
 package hs.kr.equus.feed.domain.notice.presentation
 
+import hs.kr.equus.feed.domain.notice.domain.type.NoticeType
 import hs.kr.equus.feed.domain.notice.presentation.dto.request.CreateNoticeRequest
 import hs.kr.equus.feed.domain.notice.presentation.dto.request.ModifyNoticeRequest
+import hs.kr.equus.feed.domain.notice.presentation.dto.response.QueryNoticeResponse
 import hs.kr.equus.feed.domain.notice.service.*
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.DeleteMapping
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RequestPart
 import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestController
@@ -25,7 +28,8 @@ class NoticeController(
     private val uploadNoticeImageService: UploadNoticeImageService,
     private val modifyNoticeService: ModifyNoticeService,
     private val queryNoticeTitleService: QueryNoticeTitleService,
-    private val deleteNoticeService: DeleteNoticeService
+    private val deleteNoticeService: DeleteNoticeService,
+    private val queryNoticeListByTypeService: QueryNoticeListByTypeService
 ) {
 
     @ResponseStatus(value = HttpStatus.CREATED)
@@ -53,6 +57,12 @@ class NoticeController(
     @GetMapping("/title")
     fun queryTitle() =
         queryNoticeTitleService.execute()
+
+    @GetMapping
+    fun getNoticeListByType(
+        @RequestParam("type") type: NoticeType
+    ): QueryNoticeResponse =
+        queryNoticeListByTypeService.execute(type)
 
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     @DeleteMapping("/{notice-id}")
