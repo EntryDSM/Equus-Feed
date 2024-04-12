@@ -2,9 +2,9 @@ package hs.kr.equus.feed.domain.notice.service
 
 import hs.kr.equus.feed.domain.notice.domain.repository.NoticeRepository
 import hs.kr.equus.feed.domain.notice.exception.NoticeNotFoundException
-import hs.kr.equus.feed.domain.notice.presentation.dto.request.ModifyNoticeRequest
+import hs.kr.equus.feed.domain.notice.presentation.dto.request.UpdateNoticeRequest
 import hs.kr.equus.feed.global.utils.user.UserUtils
-import hs.kr.equus.feed.infrastructure.s3.service.notice.NoticeS3Service
+import hs.kr.equus.feed.infrastructure.s3.util.notice.NoticeS3Util
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -13,13 +13,13 @@ import org.springframework.transaction.annotation.Transactional
 import java.util.UUID
 
 @Service
-class ModifyNoticeService(
+class UpdateNoticeService(
     private val noticeRepository: NoticeRepository,
     private val userUtils: UserUtils,
-    private val noticeS3Service: NoticeS3Service
+    private val noticeS3Util: NoticeS3Util
 ) {
     @Transactional
-    fun execute(id: UUID, request: ModifyNoticeRequest): ResponseEntity<String> {
+    fun execute(id: UUID, request: UpdateNoticeRequest): ResponseEntity<String> {
         val adminId = userUtils.getCurrentUser().id
         val notice = noticeRepository.findByIdOrNull(id) ?: throw NoticeNotFoundException
         val fileName = request.fileName
@@ -35,7 +35,7 @@ class ModifyNoticeService(
             )
         }
 
-        fileName?.let { return ResponseEntity.ok(noticeS3Service.generateObjectUrl(it)) }
+        fileName?.let { return ResponseEntity.ok(noticeS3Util.generateObjectUrl(it)) }
             ?: return ResponseEntity(HttpStatus.NO_CONTENT)
     }
 }

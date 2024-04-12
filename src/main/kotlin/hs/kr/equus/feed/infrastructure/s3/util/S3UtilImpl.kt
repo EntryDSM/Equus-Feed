@@ -1,4 +1,4 @@
-package hs.kr.equus.feed.infrastructure.s3.service
+package hs.kr.equus.feed.infrastructure.s3.util
 
 import com.amazonaws.HttpMethod
 import com.amazonaws.services.s3.AmazonS3
@@ -19,9 +19,9 @@ import java.util.Locale
 import java.util.UUID
 
 @Service
-class S3ServiceImpl(
+class S3UtilImpl(
     private val amazonS3: AmazonS3
-) : S3Service {
+) : S3Util {
     @Value("\${cloud.aws.s3.bucket}")
     lateinit var bucketName: String
 

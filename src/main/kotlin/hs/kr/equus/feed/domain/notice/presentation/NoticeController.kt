@@ -1,7 +1,7 @@
 package hs.kr.equus.feed.domain.notice.presentation
 
 import hs.kr.equus.feed.domain.notice.presentation.dto.request.CreateNoticeRequest
-import hs.kr.equus.feed.domain.notice.presentation.dto.request.ModifyNoticeRequest
+import hs.kr.equus.feed.domain.notice.presentation.dto.request.UpdateNoticeRequest
 import hs.kr.equus.feed.domain.notice.presentation.dto.response.GetNoticeResponse
 import hs.kr.equus.feed.domain.notice.presentation.dto.response.QueryNoticeTitleResponse
 import hs.kr.equus.feed.domain.notice.presentation.dto.response.UploadNoticeImageResponse
@@ -26,7 +26,7 @@ import javax.validation.Valid
 class NoticeController(
     private val createNoticeService: CreateNoticeService,
     private val uploadNoticeImageService: UploadNoticeImageService,
-    private val modifyNoticeService: ModifyNoticeService,
+    private val updateNoticeService: UpdateNoticeService,
     private val queryNoticeTitleService: QueryNoticeTitleService,
     private val getNoticeService: GetNoticeService
 ) {
@@ -43,9 +43,9 @@ class NoticeController(
     @PatchMapping("/{notice-id}")
     fun modifyNotice(
         @PathVariable(name = "notice-id") id: UUID,
-        @RequestBody modifyNoticeRequest: ModifyNoticeRequest
+        @RequestBody updateNoticeRequest: UpdateNoticeRequest
     ): ResponseEntity<String> =
-        modifyNoticeService.execute(id, modifyNoticeRequest)
+        updateNoticeService.execute(id, updateNoticeRequest)
 
     @PostMapping("/image")
     fun uploadImage(
