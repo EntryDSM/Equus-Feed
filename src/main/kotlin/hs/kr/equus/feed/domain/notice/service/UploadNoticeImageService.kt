@@ -1,16 +1,17 @@
 package hs.kr.equus.feed.domain.notice.service
 
 import hs.kr.equus.feed.domain.notice.presentation.dto.response.UploadNoticeImageResponse
-import hs.kr.equus.feed.infrastructure.s3.util.notice.NoticeS3Util
+import hs.kr.equus.feed.infrastructure.s3.PathList
+import hs.kr.equus.feed.infrastructure.s3.util.FileUtil
 import org.springframework.stereotype.Service
 import org.springframework.web.multipart.MultipartFile
 
 @Service
 class UploadNoticeImageService(
-    private val noticeS3Util: NoticeS3Util
+    private val fileUtil: FileUtil
 ) {
     fun execute(image: MultipartFile): UploadNoticeImageResponse {
-        val fileName = noticeS3Util.upload(image)
-        return UploadNoticeImageResponse(noticeS3Util.generateObjectUrl(fileName), fileName)
+        val fileName = fileUtil.upload(image, PathList.NOTICE)
+        return UploadNoticeImageResponse(fileUtil.generateObjectUrl(fileName, PathList.NOTICE), fileName)
     }
 }

@@ -14,14 +14,12 @@ import org.springframework.stereotype.Service
 import org.springframework.web.multipart.MultipartFile
 import java.io.ByteArrayInputStream
 import java.io.InputStream
-import java.util.Date
-import java.util.Locale
-import java.util.UUID
+import java.util.*
 
 @Service
-class S3UtilImpl(
+class FileUtil(
     private val amazonS3: AmazonS3
-) : S3Util {
+) {
     @Value("\${cloud.aws.s3.bucket}")
     lateinit var bucketName: String
 
@@ -29,7 +27,7 @@ class S3UtilImpl(
         const val EXP_TIME = 1000 * 60 * 2
     }
 
-    override fun upload(file: MultipartFile, path: String): String {
+    fun upload(file: MultipartFile, path: String): String {
         val ext = verificationFile(file)
 
         val randomName = UUID.randomUUID().toString()
@@ -52,7 +50,7 @@ class S3UtilImpl(
         return filename
     }
 
-    override fun generateObjectUrl(fileName: String, path: String): String {
+    fun generateObjectUrl(fileName: String, path: String): String {
         val expiration = Date().apply {
             time += EXP_TIME
         }

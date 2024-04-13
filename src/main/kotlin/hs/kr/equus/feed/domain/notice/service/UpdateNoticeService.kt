@@ -4,7 +4,8 @@ import hs.kr.equus.feed.domain.notice.domain.repository.NoticeRepository
 import hs.kr.equus.feed.domain.notice.exception.NoticeNotFoundException
 import hs.kr.equus.feed.domain.notice.presentation.dto.request.UpdateNoticeRequest
 import hs.kr.equus.feed.global.utils.user.UserUtils
-import hs.kr.equus.feed.infrastructure.s3.util.notice.NoticeS3Util
+import hs.kr.equus.feed.infrastructure.s3.PathList
+import hs.kr.equus.feed.infrastructure.s3.util.FileUtil
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -16,7 +17,7 @@ import java.util.UUID
 class UpdateNoticeService(
     private val noticeRepository: NoticeRepository,
     private val userUtils: UserUtils,
-    private val noticeS3Util: NoticeS3Util
+    private val fileUtil: FileUtil
 ) {
     @Transactional
     fun execute(id: UUID, request: UpdateNoticeRequest): ResponseEntity<String> {
@@ -35,7 +36,7 @@ class UpdateNoticeService(
             )
         }
 
-        fileName?.let { return ResponseEntity.ok(noticeS3Util.generateObjectUrl(it)) }
+        fileName?.let { return ResponseEntity.ok(fileUtil.generateObjectUrl(it, PathList.NOTICE)) }
             ?: return ResponseEntity(HttpStatus.NO_CONTENT)
     }
 }
