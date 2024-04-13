@@ -14,7 +14,7 @@ class QueryNoticeListByTypeService(
 ) {
 
     @Transactional(readOnly = true)
-    fun execute(type: NoticeType): QueryNoticeResponse {
+    fun execute(type: NoticeType?): QueryNoticeResponse {
         val notices = getNoticeList(type).map { it ->
             NoticeDto(
                 id = it.id!!,

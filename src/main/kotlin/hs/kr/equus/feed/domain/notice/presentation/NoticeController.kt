@@ -60,7 +60,7 @@ class NoticeController(
 
     @GetMapping
     fun getNoticeListByType(
-        @RequestParam("type") type: NoticeType
+        @RequestParam("type") type: NoticeType?
     ): QueryNoticeResponse =
         queryNoticeListByTypeService.execute(type)
 
