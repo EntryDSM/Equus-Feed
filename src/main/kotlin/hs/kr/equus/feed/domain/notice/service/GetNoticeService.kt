@@ -14,7 +14,7 @@ import java.util.*
 @Service
 class GetNoticeService(
     private val noticeRepository: NoticeRepository,
-    private val fileUtil: FileUtil,
+    private val fileUtil: FileUtil
 ) {
     fun execute(noticeId: UUID): GetNoticeResponse {
         val notice = noticeRepository.findByIdOrNull(noticeId) ?: throw NoticeNotFoundException
