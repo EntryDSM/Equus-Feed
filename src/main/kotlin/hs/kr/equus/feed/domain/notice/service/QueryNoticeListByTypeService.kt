@@ -3,7 +3,6 @@ package hs.kr.equus.feed.domain.notice.service
 import hs.kr.equus.feed.domain.notice.domain.Notice
 import hs.kr.equus.feed.domain.notice.domain.repository.NoticeRepository
 import hs.kr.equus.feed.domain.notice.domain.type.NoticeType
-import hs.kr.equus.feed.domain.notice.presentation.dto.response.NoticeDto
 import hs.kr.equus.feed.domain.notice.presentation.dto.response.NoticeResponse
 import hs.kr.equus.feed.domain.notice.presentation.dto.response.QueryNoticeResponse
 import org.springframework.stereotype.Service
