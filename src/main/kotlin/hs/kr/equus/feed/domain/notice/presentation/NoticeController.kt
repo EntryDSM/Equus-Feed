@@ -22,7 +22,7 @@ class NoticeController(
     private val uploadNoticeImageService: UploadNoticeImageService,
     private val updateNoticeService: UpdateNoticeService,
     private val queryNoticeTitleService: QueryNoticeTitleService,
-    private val queryNoticeListByTypeService: QueryNoticeListByTypeService
+    private val queryNoticeListByTypeService: QueryNoticeListByTypeService,
     private val getNoticeService: GetNoticeService,
     private val deleteNoticeService: DeleteNoticeService
 ) {
