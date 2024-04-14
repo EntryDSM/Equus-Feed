@@ -24,7 +24,7 @@ class NoticeController(
     private val queryNoticeTitleService: QueryNoticeTitleService,
     private val deleteNoticeService: DeleteNoticeService,
     private val queryNoticeListByTypeService: QueryNoticeListByTypeService,
-    private val getNoticeService: GetNoticeService,
+    private val getNoticeService: GetNoticeService
 ) {
 
     @ResponseStatus(value = HttpStatus.CREATED)
