@@ -5,7 +5,7 @@ import javax.validation.constraints.NotBlank
 import javax.validation.constraints.NotNull
 import javax.validation.constraints.Size
 
-data class ModifyNoticeRequest(
+data class UpdateNoticeRequest(
     @field:NotBlank(message = "title은 null, 공백, 띄어쓰기를 허용하지 않습니다.")
     @Size(max = 100, message = "title은 최대 100자까지 가능합니다.")
     val title: String,
