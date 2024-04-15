@@ -5,8 +5,9 @@ import java.util.UUID
 import javax.persistence.Entity
 
 @Entity(name = "tbl_screen")
-class Screen (
-    id: UUID?,
+class Screen(
+
+    id: UUID? = null,
 
     val image: String,
 
