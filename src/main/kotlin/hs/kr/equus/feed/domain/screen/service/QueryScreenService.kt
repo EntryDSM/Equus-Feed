@@ -6,7 +6,6 @@ import hs.kr.equus.feed.infrastructure.s3.PathList
 import hs.kr.equus.feed.infrastructure.s3.util.FileUtil
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
-import java.util.stream.Collectors
 
 @Service
 class QueryScreenService(
@@ -14,8 +13,8 @@ class QueryScreenService(
     private val fileUtil: FileUtil
 ) {
     @Transactional(readOnly = true)
-    fun execute(): List<QueryScreenResponse>
-        = screenRepository.findAll()
+    fun execute(): List<QueryScreenResponse> =
+        screenRepository.findAll()
             .map { it ->
                 QueryScreenResponse(
                     it.id!!,
@@ -25,4 +24,3 @@ class QueryScreenService(
                 )
             }
 }
-
