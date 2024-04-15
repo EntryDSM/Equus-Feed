@@ -12,4 +12,4 @@ class Screen(
     val image: String,
 
     val adminId: UUID
-): BaseUUIDEntity(id)
+) : BaseUUIDEntity(id)

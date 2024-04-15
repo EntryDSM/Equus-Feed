@@ -25,7 +25,7 @@ class CreateScreenService(
         screenRepository.save(
             Screen(
                 image = fileName,
-                adminId =  adminId
+                adminId = adminId
             )
         )
         return ScreenResponse(fileName)
