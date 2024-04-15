@@ -1,5 +1,6 @@
 package hs.kr.equus.feed.domain.screen.presentation
 
+import hs.kr.equus.feed.domain.screen.presentation.dto.response.ScreenResponse
 import hs.kr.equus.feed.domain.screen.service.CreateScreenService
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.PostMapping
@@ -19,6 +20,6 @@ class ScreenController(
     @PostMapping
     fun createScreen(
         @RequestPart(name = "image") image: MultipartFile
-    ): String =
+    ): ScreenResponse =
         createScreenService.execute(image)
 }
