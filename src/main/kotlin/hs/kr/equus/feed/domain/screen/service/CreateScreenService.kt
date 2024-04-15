@@ -21,7 +21,7 @@ class CreateScreenService(
     fun execute(file: MultipartFile): ScreenResponse {
         val adminId = userUtils.getCurrentUser().id
 
-        val fileName = fileUtil.upload(file, PathList.NOTICE)
+        val fileName = fileUtil.upload(file, PathList.SCREEN)
         screenRepository.save(
             Screen(
                 image = fileName,
