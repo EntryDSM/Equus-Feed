@@ -1,6 +1,6 @@
 package hs.kr.equus.feed.domain.screen.domain
 
-import hs.kr.equus.feed.domain.BaseUUIDEntity
+import hs.kr.equus.feed.domain.BaseEntity
 import java.util.UUID
 import javax.persistence.Entity
 
@@ -12,4 +12,4 @@ class Screen(
     val image: String,
 
     val adminId: UUID
-) : BaseUUIDEntity(id)
+) : BaseEntity(id)
