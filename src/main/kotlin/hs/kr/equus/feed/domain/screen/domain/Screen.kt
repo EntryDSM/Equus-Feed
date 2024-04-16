@@ -12,7 +12,7 @@ class Screen(
 
     var image: String,
 
-    @Column(columnDefinition = "VARCHAR(255)")
+    @Column(columnDefinition = "BINARY(16)")
     val adminId: UUID
 ) : BaseEntity(id) {
 
