@@ -50,6 +50,10 @@ class FileUtil(
         return filename
     }
 
+    fun delete(objectName: String, path: String) {
+        amazonS3.deleteObject(bucketName, path + objectName)
+    }
+
     fun generateObjectUrl(fileName: String, path: String): String {
         val expiration = Date().apply {
             time += EXP_TIME
