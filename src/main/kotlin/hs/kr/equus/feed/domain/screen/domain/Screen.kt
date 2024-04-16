@@ -10,8 +10,13 @@ class Screen(
 
     id: UUID? = null,
 
-    val image: String,
+    var image: String,
 
     @Column(columnDefinition = "VARCHAR(255)")
     val adminId: UUID
-) : BaseEntity(id)
+) : BaseEntity(id) {
+
+    fun updateImage(image: String) {
+        this.image = image
+    }
+}
