@@ -49,6 +49,8 @@ class SecurityConfig(
             .permitAll()
             .antMatchers(HttpMethod.POST, "/notice/**")
             .hasRole(ADMIN_ROLE)
+            .antMatchers(HttpMethod.POST, "/screen")
+            .hasRole(ADMIN_ROLE)
             .anyRequest()
             .authenticated()
 
