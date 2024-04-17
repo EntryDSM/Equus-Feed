@@ -27,6 +27,7 @@ enum class ErrorCode(
     REPLY_NOT_FOUND(404, "Reply Not Found"),
     FAQ_NOT_FOUND(404, "Faq Not Found"),
     NOTICE_NOT_FOUND(404, "Notice Not Found"),
+    SCREEN_NOT_FOUND(404, "Screen Not Found"),
 
     // Bad Request
     FILE_IS_EMPTY(400, "File does not exist"),
