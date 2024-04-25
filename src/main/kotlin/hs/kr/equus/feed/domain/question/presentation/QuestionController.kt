@@ -45,7 +45,10 @@ class QuestionController(
     }
 
     @GetMapping("/all")
-    fun getQuestionList(@PageableDefault(size = 10) pageable: Pageable): QuestionListResponse = queryQuestionListService.execute(pageable)
+    fun getQuestionList(
+        @PageableDefault(size = 10) pageable: Pageable
+    ): QuestionListResponse =
+        queryQuestionListService.execute(pageable)
 
     @GetMapping("/{questionId}")
     fun getQuestionDetails(@PathVariable("questionId") questionId: UUID): QuestionDetailsResponse =
