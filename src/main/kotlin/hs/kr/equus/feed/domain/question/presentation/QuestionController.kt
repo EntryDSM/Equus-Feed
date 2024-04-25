@@ -10,6 +10,8 @@ import hs.kr.equus.feed.domain.question.service.QueryQuestionDetailsService
 import hs.kr.equus.feed.domain.question.service.QueryQuestionListService
 import hs.kr.equus.feed.domain.question.service.UpdateQuestionService
 import hs.kr.equus.feed.domain.question.service.DeleteQuestionService
+import org.springframework.data.domain.Pageable
+import org.springframework.data.web.PageableDefault
 import org.springframework.http.HttpStatus
 import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.RequestMapping
@@ -43,7 +45,7 @@ class QuestionController(
     }
 
     @GetMapping("/all")
-    fun getQuestionList(): QuestionListResponse = queryQuestionListService.execute()
+    fun getQuestionList(@PageableDefault(size = 10) pageable: Pageable): QuestionListResponse = queryQuestionListService.execute(pageable)
 
     @GetMapping("/{questionId}")
     fun getQuestionDetails(@PathVariable("questionId") questionId: UUID): QuestionDetailsResponse =
