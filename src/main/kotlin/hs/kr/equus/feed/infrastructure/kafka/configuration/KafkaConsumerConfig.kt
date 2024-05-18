@@ -31,11 +31,14 @@ class KafkaConsumerConfig(
             ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG to kafkaProperty.serverAddress,
             ConsumerConfig.ISOLATION_LEVEL_CONFIG to "read_committed",
             ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG to StringDeserializer::class.java,
-            ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG to StringDeserializer::class.java,
             ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG to "false",
             ConsumerConfig.AUTO_OFFSET_RESET_CONFIG to "latest",
+            ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG to JsonDeserializer::class.java,
             ConsumerConfig.MAX_POLL_INTERVAL_MS_CONFIG to 5000,
-            JsonDeserializer.TRUSTED_PACKAGES to "*"
+            JsonDeserializer.TRUSTED_PACKAGES to "*",
+            "security.protocol" to "SASL_SSL",
+            "sasl.mechanism" to "PLAIN",
+            "sasl.jaas.config" to "org.apache.kafka.common.security.plain.PlainLoginModule required username=\"${kafkaProperty.confluentApiKey}\" password=\"${kafkaProperty.confluentApiSecret}\";"
         )
     }
 }
