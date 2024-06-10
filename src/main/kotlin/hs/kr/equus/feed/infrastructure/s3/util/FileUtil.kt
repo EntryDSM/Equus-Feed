@@ -1,6 +1,5 @@
 package hs.kr.equus.feed.infrastructure.s3.util
 
-import com.amazonaws.HttpMethod
 import com.amazonaws.services.s3.AmazonS3
 import com.amazonaws.services.s3.model.CannedAccessControlList
 import com.amazonaws.services.s3.model.GeneratePresignedUrlRequest
@@ -55,15 +54,11 @@ class FileUtil(
     }
 
     fun generateObjectUrl(fileName: String, path: String): String {
-        val expiration = Date().apply {
-            time += EXP_TIME
-        }
-
         return amazonS3.generatePresignedUrl(
             GeneratePresignedUrlRequest(
                 bucketName,
                 "${path}$fileName"
-            ).withMethod(HttpMethod.GET).withExpiration(expiration)
+            )
         ).toString()
     }
 
@@ -72,7 +67,7 @@ class FileUtil(
         val originalFilename = file.originalFilename!!
         val ext = originalFilename.substring(originalFilename.lastIndexOf(".") + 1).lowercase(Locale.getDefault())
 
-        if (!(ext == "jpg" || ext == "jpeg" || ext == "png" || ext == "heic" || ext == "hwp" || ext == "pptx")) {
+        if (!(ext == "jpg" || ext == "jpeg" || ext == "png" || ext == "heic" || ext == "hwp" || ext == "pptx" || ext == "pdf")) {
             throw BadFileExtensionException
         }
 
