@@ -20,13 +20,16 @@ class GetNoticeService(
         val notice = noticeRepository.findByIdOrNull(noticeId) ?: throw NoticeNotFoundException
         val imageURL = notice.fileName?.let { fileUtil.generateObjectUrl(it, PathList.NOTICE) }
 
+        val attachFileUrls = notice.attachFile!!.split(",").map { fileUtil.generateObjectUrl(it, PathList.NOTICE) }
+
         return notice.run {
             GetNoticeResponse(
                 title = title,
                 content = content,
                 createdAt = createdAt,
                 type = type,
-                imageURL = imageURL
+                imageURL = imageURL,
+                attachFileUrl = attachFileUrls
             )
         }
     }
