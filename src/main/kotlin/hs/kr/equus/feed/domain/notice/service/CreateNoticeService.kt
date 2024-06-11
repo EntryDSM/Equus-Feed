@@ -18,7 +18,7 @@ class CreateNoticeService(
         request: CreateNoticeRequest
     ) {
         val admin = userUtils.getCurrentUserId()
-        val attachFilesAsString = request.attachFile!!.joinToString(",")
+        val attachFilesAsString = request.attachFile?.joinToString(",")
 
         noticeRepository.save(
             Notice(
