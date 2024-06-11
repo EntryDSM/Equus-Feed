@@ -1,5 +1,6 @@
 package hs.kr.equus.feed.infrastructure.s3.util
 
+import com.amazonaws.HttpMethod
 import com.amazonaws.services.s3.AmazonS3
 import com.amazonaws.services.s3.model.CannedAccessControlList
 import com.amazonaws.services.s3.model.GeneratePresignedUrlRequest
@@ -23,7 +24,7 @@ class FileUtil(
     lateinit var bucketName: String
 
     companion object {
-        const val EXP_TIME = 1000 * 60 * 2
+        const val EXP_TIME = 10000 * 60 * 2
     }
 
     fun upload(file: MultipartFile, path: String): String {
@@ -54,11 +55,14 @@ class FileUtil(
     }
 
     fun generateObjectUrl(fileName: String, path: String): String {
+        val expiration = Date().apply {
+            time += EXP_TIME
+        }
         return amazonS3.generatePresignedUrl(
             GeneratePresignedUrlRequest(
                 bucketName,
                 "${path}$fileName"
-            )
+            ).withMethod(HttpMethod.GET).withExpiration(expiration)
         ).toString()
     }
 
