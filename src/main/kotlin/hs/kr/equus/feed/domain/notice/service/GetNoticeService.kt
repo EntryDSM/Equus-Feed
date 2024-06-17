@@ -18,11 +18,11 @@ class GetNoticeService(
 ) {
     fun execute(noticeId: UUID): GetNoticeResponse {
         val notice = noticeRepository.findByIdOrNull(noticeId) ?: throw NoticeNotFoundException
-        val imageURL = notice.fileName?.let { fileUtil.generateObjectUrl(it, PathList.NOTICE) }
+        val imageURL = notice.fileName?.let { getUrl(it, PathList.NOTICE) }
 
         val attachFileUrls =
             notice.attachFile?.map {
-                fileUtil.generateObjectUrl(it.attachFile, PathList.ATTACH_FILE)
+                getUrl(it.attachFile, PathList.ATTACH_FILE)
             }
 
         return notice.run {
@@ -36,4 +36,6 @@ class GetNoticeService(
             )
         }
     }
+
+    private fun getUrl(file: String, path: String) = fileUtil.generateObjectUrl(file, path)
 }
