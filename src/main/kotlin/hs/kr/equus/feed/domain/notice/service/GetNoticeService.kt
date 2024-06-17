@@ -21,7 +21,9 @@ class GetNoticeService(
         val imageURL = notice.fileName?.let { fileUtil.generateObjectUrl(it, PathList.NOTICE) }
 
         val attachFileUrls =
-            notice.attachFile?.split(",")?.map { fileUtil.generateObjectUrl(it, PathList.NOTICE) }
+            notice.attachFile?.map {
+                fileUtil.generateObjectUrl(it.attachFile, PathList.ATTACH_FILE)
+            }
 
         return notice.run {
             GetNoticeResponse(
