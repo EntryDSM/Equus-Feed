@@ -3,6 +3,7 @@ package hs.kr.equus.feed.domain.notice.service
 import hs.kr.equus.feed.domain.notice.domain.Notice
 import hs.kr.equus.feed.domain.attachFile.domain.repository.AttachFileRepository
 import hs.kr.equus.feed.domain.notice.domain.repository.NoticeRepository
+import hs.kr.equus.feed.domain.notice.exception.AttachFileNotFoundException
 import hs.kr.equus.feed.domain.notice.presentation.dto.request.CreateNoticeRequest
 import hs.kr.equus.feed.global.utils.user.UserUtils
 import org.springframework.stereotype.Service
@@ -21,7 +22,7 @@ class CreateNoticeService(
     ) {
         val admin = userUtils.getCurrentUserId()
         val attachFile = request.attachFile?.map {
-            attachFileRepository.findByAttachFile(it) ?: throw Exception()
+            attachFileRepository.findByAttachFile(it) ?: throw AttachFileNotFoundException
         }
 
         noticeRepository.save(
