@@ -6,6 +6,4 @@ import java.util.UUID
 
 interface AttachFileRepository : JpaRepository<AttachFile, UUID> {
     fun findByAttachFile(attachFile: String): AttachFile?
-
-
 }
