@@ -20,7 +20,7 @@ class Notice(
     var fileName: String? = null,
 
     @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "attachFileId")
+    @JoinColumn(name = "noticeId")
     var attachFile: List<AttachFile>? = emptyList() ,
 
     @Column(name = "admin_id", nullable = false, columnDefinition = "BINARY(16)")

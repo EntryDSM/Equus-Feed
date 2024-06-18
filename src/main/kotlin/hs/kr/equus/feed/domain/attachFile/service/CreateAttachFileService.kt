@@ -23,5 +23,6 @@ class CreateAttachFileService(
         return CreateAttachFileResponse(attachFileUrl, getUrl(attachFileUrl))
     }
 
-    private fun getUrl(attachFileUrl: String) = fileUtil.generateObjectUrl(attachFileUrl, PathList.ATTACH_FILE)
+    private fun getUrl(attachFileUrl: String) =
+        fileUtil.generateObjectUrl(attachFileUrl, PathList.ATTACH_FILE)
 }
