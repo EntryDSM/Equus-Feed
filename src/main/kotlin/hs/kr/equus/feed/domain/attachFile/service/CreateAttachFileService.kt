@@ -14,13 +14,13 @@ class CreateAttachFileService(
     private val fileUtil: FileUtil
 ) {
     fun execute(attachFile: MultipartFile): CreateAttachFileResponse {
-        val attachFileUrl = fileUtil.upload(attachFile, PathList.ATTACH_FILE)
+        val attachFileName = fileUtil.upload(attachFile, PathList.ATTACH_FILE)
         attachFileRepository.save(
             AttachFile(
-                attachFile = attachFileUrl
+                attachFile = attachFileName
             )
         )
-        return CreateAttachFileResponse(attachFileUrl, getUrl(attachFileUrl))
+        return CreateAttachFileResponse(attachFileName, getUrl(attachFileName))
     }
 
     private fun getUrl(attachFileUrl: String) =

@@ -23,5 +23,5 @@ data class CreateNoticeRequest(
 
     val fileName: String? = null,
 
-    val attachFile: List<String>? = null
+    val attachFileName: List<String>? = null
 )

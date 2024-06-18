@@ -21,7 +21,7 @@ class CreateNoticeService(
         request: CreateNoticeRequest
     ) {
         val admin = userUtils.getCurrentUserId()
-        val attachFile = request.attachFile?.map {
+        val attachFile = request.attachFileName?.map {
             attachFileRepository.findByAttachFile(it) ?: throw AttachFileNotFoundException
         }
 
