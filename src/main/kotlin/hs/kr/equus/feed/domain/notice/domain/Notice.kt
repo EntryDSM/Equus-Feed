@@ -21,7 +21,7 @@ class Notice(
 
     @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "noticeId")
-    var attachFile: List<AttachFile>? = emptyList() ,
+    var attachFile: List<AttachFile>? = emptyList(),
 
     @Column(name = "admin_id", nullable = false, columnDefinition = "BINARY(16)")
     var adminId: UUID,
