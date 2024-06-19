@@ -21,5 +21,7 @@ data class CreateNoticeRequest(
     @field:NotNull(message = "type은 null일수가 없습니다")
     val type: NoticeType,
 
-    val fileName: String? = null
+    val fileName: String? = null,
+
+    val attachFileName: List<String>? = null
 )

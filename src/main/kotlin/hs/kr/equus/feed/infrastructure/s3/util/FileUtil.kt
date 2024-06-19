@@ -24,7 +24,7 @@ class FileUtil(
     lateinit var bucketName: String
 
     companion object {
-        const val EXP_TIME = 1000 * 60 * 2
+        const val EXP_TIME = 10000 * 60 * 2
     }
 
     fun upload(file: MultipartFile, path: String): String {
@@ -58,7 +58,6 @@ class FileUtil(
         val expiration = Date().apply {
             time += EXP_TIME
         }
-
         return amazonS3.generatePresignedUrl(
             GeneratePresignedUrlRequest(
                 bucketName,
@@ -72,7 +71,13 @@ class FileUtil(
         val originalFilename = file.originalFilename!!
         val ext = originalFilename.substring(originalFilename.lastIndexOf(".") + 1).lowercase(Locale.getDefault())
 
-        if (!(ext == "jpg" || ext == "jpeg" || ext == "png" || ext == "heic" || ext == "hwp" || ext == "pptx")) {
+        if (!(
+            ext == "jpg" || ext == "jpeg" ||
+                ext == "png" || ext == "heic" ||
+                ext == "hwp" || ext == "pptx" ||
+                ext == "pdf"
+            )
+        ) {
             throw BadFileExtensionException
         }
 
