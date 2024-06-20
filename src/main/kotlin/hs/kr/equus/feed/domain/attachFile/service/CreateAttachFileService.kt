@@ -17,7 +17,7 @@ class CreateAttachFileService(
         val attachFileName = fileUtil.upload(attachFile, PathList.ATTACH_FILE)
         attachFileRepository.save(
             AttachFile(
-                attachFile = attachFileName
+                attachFileName = attachFileName
             )
         )
         return CreateAttachFileResponse(attachFileName, getUrl(attachFileName))

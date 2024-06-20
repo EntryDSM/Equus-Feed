@@ -9,5 +9,5 @@ data class GetNoticeResponse(
     val createdAt: LocalDateTime,
     val type: NoticeType,
     val imageURL: String?,
-    val attachFileUrl: List<String>?
+    val attachFileUrl: List<String>? = emptyList()
 )

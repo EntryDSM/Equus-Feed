@@ -22,7 +22,7 @@ class GetNoticeService(
 
         val attachFileUrls =
             notice.attachFile?.map {
-                getUrl(it.attachFile, PathList.ATTACH_FILE)
+                getUrl(it.attachFileName, PathList.ATTACH_FILE)
             }
 
         return notice.run {
