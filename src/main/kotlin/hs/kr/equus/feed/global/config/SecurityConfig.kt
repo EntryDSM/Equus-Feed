@@ -55,6 +55,8 @@ class SecurityConfig(
             .hasRole(ADMIN_ROLE)
             .antMatchers(HttpMethod.POST, "/screen")
             .hasRole(ADMIN_ROLE)
+            .antMatchers(HttpMethod.POST, "/attach-file")
+            .hasRole(ADMIN_ROLE)
             .anyRequest()
             .authenticated()
 
