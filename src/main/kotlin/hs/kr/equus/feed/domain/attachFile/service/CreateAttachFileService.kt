@@ -13,16 +13,18 @@ class CreateAttachFileService(
     private val attachFileRepository: AttachFileRepository,
     private val fileUtil: FileUtil
 ) {
-    fun execute(attachFile: MultipartFile): CreateAttachFileResponse {
-        val attachFileName = fileUtil.upload(attachFile, PathList.ATTACH_FILE)
-        attachFileRepository.save(
-            AttachFile(
-                attachFileName = attachFileName
-            )
-        )
-        return CreateAttachFileResponse(attachFileName, getUrl(attachFileName))
-    }
+    fun execute(attachFile: List<MultipartFile>): List<CreateAttachFileResponse> {
+        val attachFileResponses = mutableListOf<CreateAttachFileResponse>()
 
-    private fun getUrl(attachFileUrl: String) =
-        fileUtil.generateObjectUrl(attachFileUrl, PathList.ATTACH_FILE)
+        attachFile.forEach { file ->
+            val uploadedFilename = fileUtil.upload(file, PathList.ATTACH_FILE)
+            val attachFileEntity = AttachFile(attachFileName = uploadedFilename)
+            attachFileRepository.save(attachFileEntity)
+
+            val url = fileUtil.generateObjectUrl(uploadedFilename, PathList.ATTACH_FILE)
+            attachFileResponses.add(CreateAttachFileResponse(uploadedFilename, url))
+        }
+
+        return attachFileResponses
+    }
 }
