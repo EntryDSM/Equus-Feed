@@ -32,7 +32,7 @@ class GetNoticeService(
                 createdAt = createdAt,
                 type = type,
                 imageURL = imageURL,
-                attachFileUrl = attachFileUrls
+                attachFileUrl = attachFileUrls!!
             )
         }
     }
