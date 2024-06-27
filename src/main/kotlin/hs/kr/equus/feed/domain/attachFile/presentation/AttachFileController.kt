@@ -14,6 +14,6 @@ class AttachFileController(
 ) {
     @PostMapping
     fun createAttachFile(
-        @RequestPart(value = "attach_file") attachFile: MultipartFile
+        @RequestPart(value = "attach_file") attachFile: List<MultipartFile>
     ) = createAttachFileService.execute(attachFile)
 }

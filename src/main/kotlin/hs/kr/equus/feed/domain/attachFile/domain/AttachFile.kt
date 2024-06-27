@@ -7,11 +7,5 @@ import javax.persistence.Entity
 @Entity(name = "tbl_attach_file")
 class AttachFile(
     id: UUID? = null,
-    var attachFile: String
-) : BaseEntity(id) {
-    fun modifyAttachFile(
-        attachFile: String
-    ) {
-        this.attachFile = attachFile
-    }
-}
+    var attachFileName: String
+) : BaseEntity(id)
