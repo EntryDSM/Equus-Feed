@@ -4,7 +4,7 @@ import hs.kr.equus.feed.domain.notice.domain.Notice
 import hs.kr.equus.feed.domain.notice.domain.repository.NoticeRepository
 import hs.kr.equus.feed.domain.notice.domain.type.NoticeType
 import hs.kr.equus.feed.domain.notice.presentation.dto.response.NoticeResponse
-import hs.kr.equus.feed.domain.notice.presentation.dto.response.QueryNoticeResponse
+import hs.kr.equus.feed.domain.notice.presentation.dto.response.QueryListNoticeResponse
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
@@ -14,17 +14,17 @@ class QueryNoticeListByTypeService(
 ) {
 
     @Transactional(readOnly = true)
-    fun execute(type: NoticeType?): QueryNoticeResponse {
+    fun execute(type: NoticeType?): QueryListNoticeResponse {
         val notices = getNoticeList(type).map { it ->
             NoticeResponse(
                 id = it.id!!,
                 title = it.title,
                 isPinned = it.isPinned,
                 type = it.type,
-                createAt = it.createdAt
+                createdAt = it.createdAt
             )
         }
-        return QueryNoticeResponse(notices)
+        return QueryListNoticeResponse(notices)
     }
 
     private fun getNoticeList(type: NoticeType?): List<Notice> {

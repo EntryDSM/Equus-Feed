@@ -3,7 +3,7 @@ package hs.kr.equus.feed.domain.notice.presentation.dto.response
 import hs.kr.equus.feed.domain.notice.domain.type.NoticeType
 import java.time.LocalDateTime
 
-data class GetNoticeResponse(
+data class QueryDetailsNoticeResponse(
     val title: String,
     val content: String,
     val createdAt: LocalDateTime,

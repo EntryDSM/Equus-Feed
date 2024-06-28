@@ -9,5 +9,5 @@ data class NoticeResponse(
     val title: String,
     val type: NoticeType,
     val isPinned: Boolean,
-    val createAt: LocalDateTime
+    val createdAt: LocalDateTime
 )
