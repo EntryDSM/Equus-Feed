@@ -8,5 +8,4 @@ import javax.persistence.Entity
 class AttachFile(
     id: UUID? = null,
     var attachFileName: String,
-    val originalAttachFileName: String
-) : BaseEntity(id) 
+) : BaseEntity(id)
