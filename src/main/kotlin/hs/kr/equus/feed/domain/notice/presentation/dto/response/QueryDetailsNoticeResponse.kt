@@ -12,7 +12,6 @@ data class QueryDetailsNoticeResponse(
     val attachFile: List<AttachFile>
 )
 
-
 data class AttachFile(
     val attachFileUrl: String,
     val attachFileName: String
