@@ -9,7 +9,7 @@ data class QueryDetailsNoticeResponse(
     val createdAt: LocalDateTime,
     val type: NoticeType,
     val imageURL: String?,
-    val attachFile: List<AttachFile>
+    val attachFiles: List<AttachFile> = emptyList()
 )
 
 data class AttachFile(
