@@ -2,6 +2,7 @@ package hs.kr.equus.feed.domain.notice.service
 
 import hs.kr.equus.feed.domain.notice.domain.repository.NoticeRepository
 import hs.kr.equus.feed.domain.notice.exception.NoticeNotFoundException
+import hs.kr.equus.feed.domain.notice.presentation.dto.response.AttachFile
 import hs.kr.equus.feed.domain.notice.presentation.dto.response.QueryDetailsNoticeResponse
 import hs.kr.equus.feed.infrastructure.s3.PathList
 import hs.kr.equus.feed.infrastructure.s3.util.FileUtil
@@ -20,10 +21,13 @@ class QueryDetailsNoticeService(
         val notice = noticeRepository.findByIdOrNull(noticeId) ?: throw NoticeNotFoundException
         val imageURL = notice.fileName?.let { getUrl(it, PathList.NOTICE) }
 
-        val attachFileUrls =
+        val attachFile =
             notice.attachFile?.map {
-                getUrl(it.attachFileName, PathList.ATTACH_FILE)
-            }
+                AttachFile(
+                    attachFileUrl = getUrl(it.attachFileName, PathList.ATTACH_FILE),
+                    attachFileName = it.attachFileName
+                )
+            } ?: emptyList()
 
         return notice.run {
             QueryDetailsNoticeResponse(
@@ -32,7 +36,7 @@ class QueryDetailsNoticeService(
                 createdAt = createdAt,
                 type = type,
                 imageURL = imageURL,
-                attachFileUrl = attachFileUrls!!
+                attachFile = attachFile
             )
         }
     }
