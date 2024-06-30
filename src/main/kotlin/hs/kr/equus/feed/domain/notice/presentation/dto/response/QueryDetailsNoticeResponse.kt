@@ -9,5 +9,10 @@ data class QueryDetailsNoticeResponse(
     val createdAt: LocalDateTime,
     val type: NoticeType,
     val imageURL: String?,
-    val attachFileUrl: List<String> = emptyList()
+    val attachFiles: List<AttachFile> = emptyList()
+)
+
+data class AttachFile(
+    val attachFileUrl: String,
+    val attachFileName: String
 )
