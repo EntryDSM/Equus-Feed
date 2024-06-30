@@ -22,7 +22,7 @@ class CreateAttachFileService(
             attachFileRepository.save(attachFileEntity)
 
             val url = fileUtil.generateObjectUrl(uploadedFilename, PathList.ATTACH_FILE)
-            attachFileResponses.add(CreateAttachFileResponse(uploadedFilename, url))
+            attachFileResponses.add(CreateAttachFileResponse(file.originalFilename!!, url))
         }
 
         return attachFileResponses
