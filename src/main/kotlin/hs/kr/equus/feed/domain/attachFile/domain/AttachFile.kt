@@ -8,6 +8,6 @@ import javax.persistence.Id
 @Entity(name = "tbl_attach_file")
 class AttachFile(
     @Id
-    val id: String,
-    var attachFileName: String,
+    val uploadedFilename: String,
+    var originalAttachFileName: String,
 )
