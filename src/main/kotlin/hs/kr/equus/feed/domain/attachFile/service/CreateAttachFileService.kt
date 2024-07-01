@@ -19,8 +19,8 @@ class CreateAttachFileService(
         attachFile.forEach { file ->
             val uploadedFilename = fileUtil.upload(file, PathList.ATTACH_FILE)
             val attachFileEntity = AttachFile(
-                id = uploadedFilename,
-                attachFileName = file.originalFilename!!
+                uploadedFilename = uploadedFilename,
+                originalAttachFileName = file.originalFilename!!
             )
             attachFileRepository.save(attachFileEntity)
 
