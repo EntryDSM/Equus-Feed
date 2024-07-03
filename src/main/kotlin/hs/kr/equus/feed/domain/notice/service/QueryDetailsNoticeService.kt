@@ -23,10 +23,10 @@ class QueryDetailsNoticeService(
 
         val attachFile =
             notice.attachFile?.map {
-                // 첨부파일 이름과 url을 묶어서 반환하기때문에 List로 묶는다
+                // 첨부파일 이름과 url을 묶어서 여러개 반환하기때문에 List로 묶는다
                 AttachFile(
-                    attachFileUrl = getUrl(it.attachFileName, PathList.ATTACH_FILE),
-                    attachFileName = it.attachFileName
+                    attachFileUrl = getUrl(it.uploadedFilename, PathList.ATTACH_FILE),
+                    attachFileName = it.originalAttachFileName
                 )
             }
 
