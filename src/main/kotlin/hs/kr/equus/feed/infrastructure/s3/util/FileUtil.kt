@@ -75,7 +75,8 @@ class FileUtil(
             ext == "jpg" || ext == "jpeg" ||
                 ext == "png" || ext == "heic" ||
                 ext == "hwp" || ext == "pptx" ||
-                ext == "pdf"
+                ext == "pdf" || ext == "xls" ||
+                ext == "xlsx"
             )
         ) {
             throw BadFileExtensionException
