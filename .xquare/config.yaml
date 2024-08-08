@@ -1,8 +1,0 @@
-config:
-    name: equus-feed
-    service_type: be
-    port: 8080
-    domain:
-        prod: equus-feed.xquare.app
-        stag: equus-feed-stag.xquare.app
-
