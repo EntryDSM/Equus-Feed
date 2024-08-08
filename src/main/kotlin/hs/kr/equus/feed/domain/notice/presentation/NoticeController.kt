@@ -1,39 +1,73 @@
 package hs.kr.equus.feed.domain.notice.presentation
 
+import hs.kr.equus.feed.domain.notice.domain.type.NoticeType
 import hs.kr.equus.feed.domain.notice.presentation.dto.request.CreateNoticeRequest
-import hs.kr.equus.feed.domain.notice.service.CreateNoticeService
-import hs.kr.equus.feed.domain.notice.service.QueryNoticeTitleService
+import hs.kr.equus.feed.domain.notice.presentation.dto.response.QueryListNoticeResponse
+import hs.kr.equus.feed.domain.notice.presentation.dto.request.UpdateNoticeRequest
+import hs.kr.equus.feed.domain.notice.presentation.dto.response.QueryDetailsNoticeResponse
+import hs.kr.equus.feed.domain.notice.presentation.dto.response.QueryNoticeTitleResponse
+import hs.kr.equus.feed.domain.notice.service.*
+import hs.kr.equus.feed.domain.notice.presentation.dto.response.UploadNoticeImageResponse
 import org.springframework.http.HttpStatus
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RequestPart
-import org.springframework.web.bind.annotation.ResponseStatus
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.http.ResponseEntity
+import org.springframework.web.bind.annotation.*
 import org.springframework.web.multipart.MultipartFile
+import java.util.UUID
 import javax.validation.Valid
 
 @RestController
 @RequestMapping("/notice")
 class NoticeController(
     private val createNoticeService: CreateNoticeService,
-    private val queryNoticeTitleService: QueryNoticeTitleService
+    private val uploadNoticeImageService: UploadNoticeImageService,
+    private val updateNoticeService: UpdateNoticeService,
+    private val queryNoticeTitleService: QueryNoticeTitleService,
+    private val queryNoticeListByTypeService: QueryNoticeListByTypeService,
+    private val queryDetailsNoticeService: QueryDetailsNoticeService,
+    private val deleteNoticeService: DeleteNoticeService
 ) {
 
     @ResponseStatus(value = HttpStatus.CREATED)
-    @PostMapping("/create")
+    @PostMapping
     fun createNotice(
-        @RequestPart(name = "request") @Valid
-        createNoticeRequest: CreateNoticeRequest,
-        @RequestPart(name = "images", required = false)
-        images: List<MultipartFile>?,
-        @RequestPart(name = "files", required = false)
-        files: List<MultipartFile>?
+        @RequestBody @Valid
+        createNoticeRequest: CreateNoticeRequest
     ) {
-        createNoticeService.execute(images, files, createNoticeRequest)
+        createNoticeService.execute(createNoticeRequest)
     }
 
-    @GetMapping("/title-all")
-    fun queryTitle() =
-        queryNoticeTitleService.execute()
+    @PatchMapping("/{notice-id}")
+    fun modifyNotice(
+        @PathVariable(name = "notice-id") id: UUID,
+        @RequestBody updateNoticeRequest: UpdateNoticeRequest
+    ): ResponseEntity<String> =
+        updateNoticeService.execute(id, updateNoticeRequest)
+
+    @PostMapping("/image")
+    fun uploadImage(
+        @RequestPart(name = "photo") image: MultipartFile
+    ): UploadNoticeImageResponse =
+        uploadNoticeImageService.execute(image)
+
+    @GetMapping("/title")
+    fun queryTitle(): List<QueryNoticeTitleResponse> = queryNoticeTitleService.execute()
+
+    @GetMapping("/{notice-id}")
+    fun getNotice(
+        @PathVariable(name = "notice-id", required = true)
+        noticeId: UUID
+    ): QueryDetailsNoticeResponse = queryDetailsNoticeService.execute(noticeId)
+
+    @GetMapping
+    fun getNoticeListByType(
+        @RequestParam("type") type: NoticeType?
+    ): QueryListNoticeResponse =
+        queryNoticeListByTypeService.execute(type)
+
+    @ResponseStatus(value = HttpStatus.NO_CONTENT)
+    @DeleteMapping("/{notice-id}")
+    fun deleteNotice(
+        @PathVariable(name = "notice-id")id: UUID
+    ) =
+        deleteNoticeService.execute(id)
 }

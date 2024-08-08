@@ -4,5 +4,6 @@ enum class FaqType {
     ADMISSION,
     COURSE,
     SCHOOL_LIFE,
+    DORMITORY,
     OTHER
 }
