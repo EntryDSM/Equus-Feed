@@ -37,7 +37,8 @@ class QueryDetailsNoticeService(
                 createdAt = createdAt,
                 type = type,
                 imageURL = imageURL,
-                attachFiles = attachFile!!
+                attachFiles = attachFile!!,
+                isPinned = isPinned
             )
         }
     }
