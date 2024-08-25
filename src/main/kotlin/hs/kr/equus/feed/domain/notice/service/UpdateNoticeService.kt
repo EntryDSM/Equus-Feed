@@ -1,6 +1,8 @@
 package hs.kr.equus.feed.domain.notice.service
 
+import hs.kr.equus.feed.domain.attachFile.domain.repository.AttachFileRepository
 import hs.kr.equus.feed.domain.notice.domain.repository.NoticeRepository
+import hs.kr.equus.feed.domain.notice.exception.AttachFileNotFoundException
 import hs.kr.equus.feed.domain.notice.exception.NoticeNotFoundException
 import hs.kr.equus.feed.domain.notice.presentation.dto.request.UpdateNoticeRequest
 import hs.kr.equus.feed.global.utils.user.UserUtils
@@ -17,13 +19,17 @@ import java.util.UUID
 class UpdateNoticeService(
     private val noticeRepository: NoticeRepository,
     private val userUtils: UserUtils,
-    private val fileUtil: FileUtil
+    private val fileUtil: FileUtil,
+    private val attachFileRepository: AttachFileRepository
 ) {
     @Transactional
     fun execute(id: UUID, request: UpdateNoticeRequest): ResponseEntity<String> {
         val adminId = userUtils.getCurrentUser().id
         val notice = noticeRepository.findByIdOrNull(id) ?: throw NoticeNotFoundException
         val fileName = request.fileName
+        val attachFile = request.attachFileName?.map {
+            attachFileRepository.findByOriginalAttachFileName(it) ?: throw AttachFileNotFoundException
+        }
 
         request.run {
             notice.modifyNotice(
@@ -32,7 +38,8 @@ class UpdateNoticeService(
                 isPinned = isPinned,
                 type = type,
                 fileName = fileName,
-                adminId = adminId
+                adminId = adminId,
+                attachFile = attachFile
             )
         }
 

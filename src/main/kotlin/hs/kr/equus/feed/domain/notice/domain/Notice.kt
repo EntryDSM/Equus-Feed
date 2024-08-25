@@ -40,7 +40,8 @@ class Notice(
         isPinned: Boolean,
         adminId: UUID,
         fileName: String?,
-        type: NoticeType
+        type: NoticeType,
+        attachFile: List<AttachFile>?
     ) {
         this.title = title
         this.content = content
@@ -48,5 +49,6 @@ class Notice(
         this.isPinned = isPinned
         this.adminId = adminId
         this.fileName = fileName
+        this.attachFile = attachFile
     }
 }
