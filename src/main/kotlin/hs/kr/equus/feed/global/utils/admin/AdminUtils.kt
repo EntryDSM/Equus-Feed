@@ -20,4 +20,3 @@ class AdminUtils(
     }
     fun getCurrentAdmin(): Admin = userFeignClient.getAdminByUUID(getCurrentAdminId())
 }
-
