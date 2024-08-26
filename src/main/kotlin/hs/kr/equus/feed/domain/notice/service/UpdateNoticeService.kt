@@ -5,7 +5,7 @@ import hs.kr.equus.feed.domain.notice.domain.repository.NoticeRepository
 import hs.kr.equus.feed.domain.notice.exception.AttachFileNotFoundException
 import hs.kr.equus.feed.domain.notice.exception.NoticeNotFoundException
 import hs.kr.equus.feed.domain.notice.presentation.dto.request.UpdateNoticeRequest
-import hs.kr.equus.feed.global.utils.user.UserUtils
+import hs.kr.equus.feed.global.utils.admin.AdminUtils
 import hs.kr.equus.feed.infrastructure.s3.PathList
 import hs.kr.equus.feed.infrastructure.s3.util.FileUtil
 import org.springframework.data.repository.findByIdOrNull
@@ -18,13 +18,13 @@ import java.util.UUID
 @Service
 class UpdateNoticeService(
     private val noticeRepository: NoticeRepository,
-    private val userUtils: UserUtils,
+    private val adminUtils: AdminUtils,
     private val fileUtil: FileUtil,
     private val attachFileRepository: AttachFileRepository
 ) {
     @Transactional
     fun execute(id: UUID, request: UpdateNoticeRequest): ResponseEntity<String> {
-        val adminId = userUtils.getCurrentUser().id
+        val adminId = adminUtils.getCurrentAdminId()
         val notice = noticeRepository.findByIdOrNull(id) ?: throw NoticeNotFoundException
         val fileName = request.fileName
         val attachFiles = request.attachFileName?.let { fileNames ->
