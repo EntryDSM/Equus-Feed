@@ -27,9 +27,12 @@ class UpdateNoticeService(
         val adminId = userUtils.getCurrentUser().id
         val notice = noticeRepository.findByIdOrNull(id) ?: throw NoticeNotFoundException
         val fileName = request.fileName
-        val attachFile = request.attachFileName?.map {
-            attachFileRepository.findByOriginalAttachFileName(it) ?: throw AttachFileNotFoundException
-        }
+        val attachFiles = request.attachFileName?.let { fileNames ->
+            fileNames.flatMap { fileName ->
+                val files = attachFileRepository.findByOriginalAttachFileName(fileName)
+                files ?: throw AttachFileNotFoundException
+            }
+        } ?: emptyList()
 
         request.run {
             notice.modifyNotice(
@@ -39,7 +42,7 @@ class UpdateNoticeService(
                 type = type,
                 fileName = fileName,
                 adminId = adminId,
-                attachFile = attachFile
+                attachFile = attachFiles
             )
         }
 

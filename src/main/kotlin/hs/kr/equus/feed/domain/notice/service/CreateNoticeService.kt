@@ -21,9 +21,12 @@ class CreateNoticeService(
         request: CreateNoticeRequest
     ) {
         val admin = userUtils.getCurrentUserId()
-        val attachFile = request.attachFileName?.map {
-            attachFileRepository.findByOriginalAttachFileName(it) ?: throw AttachFileNotFoundException
-        }
+        val attachFiles = request.attachFileName?.let { fileNames ->
+            fileNames.flatMap { fileName ->
+                val files = attachFileRepository.findByOriginalAttachFileName(fileName)
+                files ?: throw AttachFileNotFoundException
+            }
+        } ?: emptyList()
 
         noticeRepository.save(
             Notice(
@@ -33,8 +36,10 @@ class CreateNoticeService(
                 isPinned = request.isPinned,
                 adminId = admin,
                 fileName = request.fileName,
-                attachFile = attachFile
+                attachFile = attachFiles
             )
         )
     }
 }
+
+
