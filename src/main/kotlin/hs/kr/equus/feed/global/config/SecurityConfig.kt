@@ -40,7 +40,7 @@ class SecurityConfig(
             .hasRole(ADMIN_ROLE)
             .antMatchers(HttpMethod.GET, "/faq/all/title-type")
             .hasRole(ADMIN_ROLE)
-            .antMatchers(HttpMethod.GET, "/faq/all")
+            .antMatchers(HttpMethod.GET, "/faq/**")
             .permitAll()
             .antMatchers(HttpMethod.GET, "/reserve/**")
             .permitAll()
