@@ -7,7 +7,6 @@ import org.springframework.http.HttpMethod
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.http.SessionCreationPolicy
 import org.springframework.security.web.SecurityFilterChain
-import org.springframework.web.cors.CorsUtils
 
 @Configuration
 class SecurityConfig(
@@ -29,8 +28,6 @@ class SecurityConfig(
             .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 
         http.authorizeRequests()
-            .requestMatchers(CorsUtils::isCorsRequest)
-            .permitAll()
             .antMatchers("/")
             .permitAll()
             .antMatchers("/reply/**")
@@ -43,7 +40,7 @@ class SecurityConfig(
             .hasRole(ADMIN_ROLE)
             .antMatchers(HttpMethod.GET, "/faq/all/title-type")
             .hasRole(ADMIN_ROLE)
-            .antMatchers(HttpMethod.GET, "/faq/all")
+            .antMatchers(HttpMethod.GET, "/faq/**")
             .permitAll()
             .antMatchers(HttpMethod.GET, "/reserve/**")
             .permitAll()
@@ -57,6 +54,8 @@ class SecurityConfig(
             .hasRole(ADMIN_ROLE)
             .antMatchers(HttpMethod.POST, "/attach-file")
             .hasRole(ADMIN_ROLE)
+            .antMatchers(HttpMethod.GET, "/notice/**")
+            .permitAll()
             .anyRequest()
             .authenticated()
 
