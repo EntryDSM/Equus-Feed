@@ -1,5 +1,6 @@
 package hs.kr.equus.feed.domain.notice.service
 
+import hs.kr.equus.feed.domain.attachFile.domain.AttachFile
 import hs.kr.equus.feed.domain.attachFile.domain.repository.AttachFileRepository
 import hs.kr.equus.feed.domain.notice.domain.repository.NoticeRepository
 import hs.kr.equus.feed.domain.notice.exception.AttachFileNotFoundException
@@ -25,14 +26,10 @@ class UpdateNoticeService(
     @Transactional
     fun execute(id: UUID, request: UpdateNoticeRequest): ResponseEntity<String> {
         val adminId = adminUtils.getCurrentAdminId()
+
         val notice = noticeRepository.findByIdOrNull(id) ?: throw NoticeNotFoundException
         val fileName = request.fileName
-        val attachFiles = request.attachFileName?.let { fileNames ->
-            fileNames.flatMap { fileName ->
-                val files = attachFileRepository.findByOriginalAttachFileName(fileName)
-                files ?: throw AttachFileNotFoundException
-            }
-        } ?: emptyList()
+        val attachFiles = findAttachFiles(request.attachFileName)
 
         request.run {
             notice.modifyNotice(
@@ -46,7 +43,15 @@ class UpdateNoticeService(
             )
         }
 
-        fileName?.let { return ResponseEntity.ok(fileUtil.generateObjectUrl(it, PathList.NOTICE)) }
-            ?: return ResponseEntity(HttpStatus.NO_CONTENT)
+        return fileName?.let {
+            ResponseEntity.ok(fileUtil.generateObjectUrl(it, PathList.NOTICE))
+        } ?: ResponseEntity(HttpStatus.NO_CONTENT)
+    }
+
+    private fun findAttachFiles(fileNameList: List<String>?): List<AttachFile> {
+        return fileNameList?.flatMap { fileName ->
+            val fileList = attachFileRepository.findByOriginalAttachFileName(fileName)
+            fileList ?: throw AttachFileNotFoundException
+        }?.distinct() ?: emptyList()
     }
 }

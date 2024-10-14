@@ -23,7 +23,11 @@ class QueryNoticeListByTypeService(
                 type = it.type,
                 createdAt = it.createdAt
             )
-        }.sortedByDescending { it.isPinned }
+        }.sortedWith(
+            compareByDescending<NoticeResponse> { it.isPinned }
+                .thenByDescending { it.createdAt }
+        )
+
         return QueryListNoticeResponse(notices)
     }
 
