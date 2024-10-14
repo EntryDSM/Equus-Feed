@@ -52,6 +52,6 @@ class UpdateNoticeService(
         return fileNameList?.flatMap { fileName ->
             val fileList = attachFileRepository.findByOriginalAttachFileName(fileName)
             fileList ?: throw AttachFileNotFoundException
-        }?.distinct() ?: emptyList()
+        } ?: emptyList()
     }
 }

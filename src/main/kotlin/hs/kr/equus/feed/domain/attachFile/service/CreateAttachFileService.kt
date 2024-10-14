@@ -17,13 +17,15 @@ class CreateAttachFileService(
         val attachFileResponses = mutableListOf<CreateAttachFileResponse>()
 
         attachFile.forEach { file ->
+            if (attachFileRepository.existsByOriginalAttachFileName(file.originalFilename.toString())) {
+                attachFileRepository.deleteByOriginalAttachFileName(file.originalFilename.toString())
+            }
             val uploadedFilename = fileUtil.upload(file, PathList.ATTACH_FILE)
             val attachFileEntity = AttachFile(
                 uploadedFileName = uploadedFilename,
                 originalAttachFileName = file.originalFilename!!
             )
             attachFileRepository.save(attachFileEntity)
-
             val url = fileUtil.generateObjectUrl(uploadedFilename, PathList.ATTACH_FILE)
             attachFileResponses.add(CreateAttachFileResponse(file.originalFilename!!, url))
         }
