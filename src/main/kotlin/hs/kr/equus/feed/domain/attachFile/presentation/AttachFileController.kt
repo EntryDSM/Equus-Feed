@@ -1,11 +1,7 @@
 package hs.kr.equus.feed.domain.attachFile.presentation
 
 import hs.kr.equus.feed.domain.attachFile.service.CreateAttachFileService
-<<<<<<< HEAD
 import org.springframework.web.bind.annotation.PostMapping
-=======
-import org.springframework.web.bind.annotation.PatchMapping
->>>>>>> 98df16cb9edf787a39b3dda32797004df8c808f3
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestPart
 import org.springframework.web.bind.annotation.RestController
