@@ -20,5 +20,5 @@ class QueryNoticeTitleService(
                     title = it.title,
                     it.createdAt
                 )
-            }
+            }.sortedByDescending { it.createdAt }
 }
