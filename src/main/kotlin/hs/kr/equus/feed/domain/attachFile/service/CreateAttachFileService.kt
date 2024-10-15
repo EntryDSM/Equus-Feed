@@ -6,8 +6,10 @@ import hs.kr.equus.feed.domain.attachFile.presentation.dto.response.CreateAttach
 import hs.kr.equus.feed.infrastructure.s3.PathList
 import hs.kr.equus.feed.infrastructure.s3.util.FileUtil
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 import org.springframework.web.multipart.MultipartFile
 
+@Transactional
 @Service
 class CreateAttachFileService(
     private val attachFileRepository: AttachFileRepository,
@@ -17,13 +19,15 @@ class CreateAttachFileService(
         val attachFileResponses = mutableListOf<CreateAttachFileResponse>()
 
         attachFile.forEach { file ->
+            if (attachFileRepository.existsByOriginalAttachFileName(file.originalFilename!!)) {
+                attachFileRepository.deleteByOriginalAttachFileName(file.originalFilename!!)
+            }
             val uploadedFilename = fileUtil.upload(file, PathList.ATTACH_FILE)
             val attachFileEntity = AttachFile(
                 uploadedFileName = uploadedFilename,
                 originalAttachFileName = file.originalFilename!!
             )
             attachFileRepository.save(attachFileEntity)
-
             val url = fileUtil.generateObjectUrl(uploadedFilename, PathList.ATTACH_FILE)
             attachFileResponses.add(CreateAttachFileResponse(file.originalFilename!!, url))
         }
