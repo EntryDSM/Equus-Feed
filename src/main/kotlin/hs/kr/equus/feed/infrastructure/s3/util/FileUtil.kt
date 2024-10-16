@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile
 import java.io.ByteArrayInputStream
 import java.io.InputStream
 import java.util.*
+import javax.print.attribute.standard.Media
 
 @Service
 class FileUtil(
@@ -35,7 +36,10 @@ class FileUtil(
         val inputStream: InputStream = ByteArrayInputStream(file.bytes)
 
         val metadata = ObjectMetadata().apply {
-            contentType = MediaType.IMAGE_PNG_VALUE
+            contentType = when(ext) {
+                "pdf" -> MediaType.APPLICATION_PDF_VALUE
+                else -> MediaType.IMAGE_PNG_VALUE
+            }
             contentLength = file.size
             contentDisposition = "inline"
         }
