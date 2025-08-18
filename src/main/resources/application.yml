@@ -1,4 +1,6 @@
 spring:
+    main:
+        allow-bean-definition-overriding: true
     config:
         import: "optional:configserver:${CLOUD_CONFIG_IMPORT_URL}"
     cloud:
